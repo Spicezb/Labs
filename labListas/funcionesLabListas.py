@@ -20,6 +20,34 @@ def agregarDonador(lista):
                 lista.append(cedula)
                 print("\nEl donador ha sido agregado.\n")
                 break
-            except:
+            except ValueError:
                 print("El número de cédula ingresado no es válido.\n")
     return lista
+
+def listarDonadores(lista):
+    donadores="\n"
+    cantidad=0
+    cedulas=[(1,"San José"),(2,"Alajuela"),(3,"Cartago"),(4,"Heredia"),(5,"Guanacaste"),
+            (6,"Puntarenas"),(7,"Limón"),(8,"Nacionalizado o naturalizado"),(9,"Partida especial de nacimiento")]
+    while True:
+        try:
+            numero=int(input("""Ingrese el número de la provincia de la cual desea saber los donadores:
+1. San José
+2. Alajuela
+3. Cartago
+4. Heredia
+5. Guanacaste
+6. Puntarenas
+7. Limón
+8. Nacionalizado o naturalizado
+9. Partida especial de nacimiento\n"""))
+            if not re.match("[1-9]$",str(numero)):
+                raise ValueError
+            break
+        except ValueError:
+            print("\nDebe ingresar un dígito del 1 al 9.\n")
+    for i in lista:
+        if int(i[0])==numero:
+            cantidad+=1
+            donadores += i + "\n"
+    return f"\nLos donadores de {cedulas[numero-1][1]}, son {cantidad} con las cédulas:{donadores}"
