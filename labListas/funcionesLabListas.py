@@ -7,33 +7,6 @@
 import re
 
 #Definición de funciones. - - - - - -
-def mainMenu(lista):
-    print("1) Agregar convalientes donadores del dia\n" \
-            "2) Decodificar donador\n" \
-            "3) Listar donadores segun el Registro de Naturalizaciones\n" \
-            "4) Donadores totales del pais\n" \
-            "5) Donadores no tipicos\n" \
-            "6) Salir")
-    
-    option=int(input("Opcion: "))
-
-    if option == 1:
-        agregarDonador(lista)
-        mainMenu(lista)
-    elif option == 2:
-        decodificarDonador(lista)
-        mainMenu(lista)
-    elif option == 3:
-        print(obtenerDonadores(subMenu(),lista))
-        mainMenu(lista)
-    elif option == 4:
-        print("En camino")
-        mainMenu(lista)
-    elif option == 5:
-        print("En camino")
-        mainMenu(lista)
-    return print("Gracias por donar su sangre")
-
 def subMenu():
     print("1) San José\n2) Alajuela\n3) Cartago\n4) Heredia\n" \
     "5) Guanacaste\n6) Puntarenas\n7) Limón\n8) Nacionalizado/naturalizado (Extranjero)\n" \
@@ -61,10 +34,10 @@ def agregarDonador(lista):
                 if cedula in lista:
                     raise ValueError
                 lista.append(cedula)
-                print("El donador ha sido agregado.")
+                "El donador ha sido agregado."
                 break
             except ValueError:
-                print("El número de cédula ingresado no es válido.")
+                "El número de cédula ingresado no es válido."
     return lista
 
 def decodificarDonador(lista):
@@ -86,7 +59,7 @@ def decodificarDonador(lista):
                 raise ValueError
             break
         except ValueError:
-            print("Debe ingresar un número de cédula válido.\n")
+            "Debe ingresar un número de cédula válido.\n"
     if donador in lista:
         return f"\nEl donador es de {cedulas[int(donador[0])-1][1]}, está registrado en el tomo {donador[1:5]} y el asiento {donador[5:]}."
     else:
