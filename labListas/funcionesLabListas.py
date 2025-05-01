@@ -7,6 +7,40 @@
 import re
 
 #Definición de funciones. - - - - - -
+def mainMenu(lista):
+    print("1) Agregar convalientes donadores del dia\n" \
+            "2) Decodificar donador\n" \
+            "3) Listar donadores segun el Registro de Naturalizaciones\n" \
+            "4) Donadores totales del pais\n" \
+            "5) Donadores no tipicos\n" \
+            "6) Salir")
+    
+    option=int(input("Opcion: "))
+
+    if option == 1:
+        agregarDonador(lista)
+        mainMenu(lista)
+    elif option == 2:
+        decodificarDonador(lista)
+        mainMenu(lista)
+    elif option == 3:
+        print(obtenerDonadores(subMenu(),lista))
+        mainMenu(lista)
+    elif option == 4:
+        print("En camino")
+        mainMenu(lista)
+    elif option == 5:
+        print("En camino")
+        mainMenu(lista)
+    return print("Gracias por donar su sangre")
+
+def subMenu():
+    print("1) San José\n2) Alajuela\n3) Cartago\n4) Heredia\n" \
+    "5) Guanacaste\n6) Puntarenas\n7) Limón\n8) Nacionalizado/naturalizado (Extranjero)\n" \
+    "9) Partida especial de nacimiento (Casos especiales)")
+    prov=int(input("Provincia: "))
+    return prov
+
 def agregarDonador(lista):
     """
     Funcionamiento:
