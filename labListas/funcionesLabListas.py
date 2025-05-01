@@ -50,4 +50,9 @@ def listarDonadores(lista):
         if int(i[0])==numero:
             cantidad+=1
             donadores += i + "\n"
+    if cantidad==0:
+        return "\nAún no hay personas donadoras de esa naturalización"
     return f"\nLos donadores de {cedulas[numero-1][1]}, son {cantidad} con las cédulas:{donadores}"
+
+lista=["123456789"]
+print(listarDonadores(lista))
