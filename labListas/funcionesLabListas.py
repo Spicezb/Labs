@@ -4,14 +4,25 @@
 #Versión: 3.13.2
 
 #Importación de librerías. - - - - - - 
+import os                             # Se utilizó unicamente para los os.system("cls"). Para poder borrar la consola.
 import re
 
 #Definición de funciones. - - - - - -
 def subMenu():
-    print("1) San José\n2) Alajuela\n3) Cartago\n4) Heredia\n" \
+    """
+    Funcionamiento:
+    - Es el submenú para la funcion obtenerDonadores.
+    - Se le pide al usuario una opción, y dependiendo de su elección, se realiza la acción.
+    Entradas:
+    - N/A
+    Salidas:
+    - Retorna la opción que se eligió.
+    """
+    print("Indique la provincia a buscar\n1) San José\n2) Alajuela\n3) Cartago\n4) Heredia\n" \
     "5) Guanacaste\n6) Puntarenas\n7) Limón\n8) Nacionalizado/naturalizado (Extranjero)\n" \
     "9) Partida especial de nacimiento (Casos especiales)")
     prov=int(input("Provincia: "))
+    os.system("cls")
     return prov
 
 def agregarDonador(lista):
@@ -24,20 +35,25 @@ def agregarDonador(lista):
     Salidas:
     - Retorna la lista con los donadores agregados.
     """
-    cantidad=int(input("Ingrese la cantidad de usuarios que desea agregar:\n"))
-    for i in range(cantidad):
-        while True:
-            try:
-                cedula=input("\nIngrese el número de cédula del donador:\n")
+    try:
+        os.system("cls")
+        cantidad=int(input("Ingrese la cantidad de usuarios que desea agregar:\n"))
+        for i in range(cantidad):
+            while True:
+                os.system("cls")
+                cedula=input("Ingrese el número de cédula del donador:\n")
                 if not re.match(r"[1-9]{1}\d{8}$",cedula):
-                    raise ValueError
+                    raise TypeError
                 if cedula in lista:
-                    raise ValueError
+                    raise TypeError
                 lista.append(cedula)
-                "El donador ha sido agregado."
+                print("El donador ha sido agregado.")
+                input("Presione enter para continuar...")
                 break
-            except ValueError:
-                "El número de cédula ingresado no es válido."
+    except TypeError:
+        print("El número de cédula ingresado no es válido.")
+    except ValueError:
+        print("Debe de ingresar una cantidad válida.")
     return lista
 
 def decodificarDonador(lista):
