@@ -1,6 +1,6 @@
 #laborado por: Luis Guillermo Alfaro Chacón y Xavier Céspedes Alvarado
 #Fecha de creación: 30/04/2025 16:30
-#Última modificación: 01/05/2025 11:28
+#Última modificación: 01/05/2025 21:30
 #Versión: 3.13.2
 #Importación de librerías. - - - - - - 
 import os                             # Se utilizó unicamente para los os.system("cls"). Para poder borrar la consola.
