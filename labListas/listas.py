@@ -43,11 +43,10 @@ def mainMenu(lista):
             input("Presione enter para continuar...")
             os.system("cls")
         elif option == 3:
-            print(obtenerDonadores(subMenu(),lista))
+            print(subMenu(lista))
             input("Presione enter para continuar...")
-            os.system("cls")
         elif option == 4:
-            for i in range(1,8):
+            for i in range(1,10):
                 print(obtenerDonadores(i,lista))
             input("Presione enter para continuar...")
             os.system("cls")

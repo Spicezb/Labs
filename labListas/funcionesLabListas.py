@@ -8,7 +8,7 @@ import os                             # Se utilizó unicamente para los os.syste
 import re
 
 #Definición de funciones. - - - - - -
-def subMenu():
+def subMenu(lista):
     """
     Funcionamiento:
     - Es el submenú para la funcion obtenerDonadores.
@@ -22,8 +22,15 @@ def subMenu():
     "5) Guanacaste\n6) Puntarenas\n7) Limón\n8) Nacionalizado/naturalizado (Extranjero)\n" \
     "9) Partida especial de nacimiento (Casos especiales)")
     prov=int(input("Provincia: "))
-    os.system("cls")
-    return prov
+    try:
+        if not re.match(r"[1-9]$",str(prov)):
+            raise ValueError
+        else:
+            os.system("cls")
+            return obtenerDonadores(prov,lista)
+    except ValueError:
+                os.system("cls")
+                return("Debe de ingresar una opción válida.")
 
 def agregarDonador(lista):
     """
@@ -100,5 +107,5 @@ def obtenerDonadores(provincia,lista):
             cantidad+=1
             donadores += i + "\n"
     if cantidad==0:
-        return "Aún no hay personas donadoras de esa naturalización."
+        return "Aún no hay personas donadoras de esa naturalización.\n"
     return f"Los donadores de {cedulas[provincia-1][1]}, son {cantidad} con las cédulas:{donadores}"
