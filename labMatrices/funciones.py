@@ -123,7 +123,3 @@ def ingresoAlquiler(lista):
         return print(ingresoColumna(lista))
     elif opcion==4:
         return print(ingresoTotal(lista))
-    
-
-lista=[[1,2,3,4],[1,2,3,4],[1,2,3,0]]
-ingresoAlquiler(lista)
