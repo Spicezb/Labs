@@ -3,7 +3,7 @@
 #
 # Versión de python 3.13.2
 # Libreiras                                                                          
-
+import os
 # Funciones
 def crearEdificio(cP,cA):
     piso=[]
@@ -15,23 +15,99 @@ def crearEdificio(cP,cA):
     return piso
 
 def alquilarAparta(edi):
-    piso=buscarApartamento()
-    if edi[int(piso[0])][int(piso[1])] == 0:
-        monto=int(input("Digite el monto del aquiler de este apartamento: "))
-        for i in range(len(edi)):
-            if i == int(piso[0]):
+    while True:
+        try:
+            if dispo(edi)==True:
+                aparta=buscarApartamento(edi)
+                print(aparta)
+                if edi[aparta[0]-1][aparta[1]-1] == 0:
+                    monto=int(input("Digite el monto del aquiler de este apartamento: "))
+                    edi[int(aparta[0]-1)][int(aparta[1]-1)]=+monto
+                    print("El apartamento ha sido alquilado.")
+                    return edi
+                else:
+                    raise TypeError
+            else:
+                os.system("cls")
+                print("No hay apartamentos disponibles")
+                input("Presione enter para continuar.")
+                return edi
+        except ValueError :
+            os.system("cls")
+            print("Ingrese un valor valido.")
+            input("Presione enter para reintentar. . .")
+        except TypeError:
+            os.system("cls")
+            print("El apartamento está alquilado, por favor digite otro número de apartamento.")
+            input("Presione enter para reintentar. . .")
+
+def dispo(edi):
+    for i in range(len(edi)):
+        for n in range(len(edi[i])):
+            if edi[i][n]==0:
+                return True
+
+def modificarRenta(edi):
+    while True:
+        try:
+            piso=[]
+            for i in range(len(edi)):
+                aparta = []
                 for n in range(len(edi[i])):
-                    if n == int(piso[1]):
-                        edi[i][n]+=monto
-        #edi[int(piso[0])][int(piso[1])] += monto
-        print(edi)
+                    aparta.append(0)
+                piso.append(aparta)
+            if piso != edi:
+                aparta=buscarApartamento(edi)
+                if edi[aparta[0]-1][aparta[1]-1] != 0:
+                    os.system("cls")
+                    opcion=int(input(f"¿Desea aumentar o disminuir la renta del apartamento {aparta[1]} del piso{aparta[0]}\n" \
+                                    "1) Confirmar\n2) Cancelar\nOpcion: "))
+                    if opcion == 1:
+                        os.system("cls")
+                        monto=int(input("Digite el monto a modificar de este apartamento: "))
+                        if edi[aparta[0]-1][aparta[1]-1] != monto:
+                            os.system("cls")
+                            print("El alquiler aumentó o disminuyó.\n" \
+                                f"Precio anterior: ${edi[aparta[0]-1][aparta[1]-1]}\n" \
+                                f"Precio nuevo: ${monto}")
+                            input("Presione enter para continuar.")
+                            edi[aparta[0]-1][aparta[1]-1]=monto
+                            print(edi)
+                            return edi
+                        else:
+                            os.system("cls")
+                            print("Debe de ingresar un monto diferente al anterior.")
+                            input("Presione enter para continuar.")
+                    else:
+                        os.system("cls")
+                        print("El apartamento no ha sido alquilado.")
+                        input("Presione enter para continuar.")
+            else:
+                os.system("cls")
+                print("No hay apartamentos alquilados")
+                input("Presione enter para continuar.")
+                return edi
+        except:
+            os.system("cls")
+            print("Ingrese un valor válido.")
+            input("Presione enter para continuar.")
 
-def buscarApartamento():
-    piso=input("Digite el piso del apartamento a buscar: ")
-    aparta=input("Digite el número del apartamento a buscar: ")
-    return(piso,aparta)
+def buscarApartamento(edi):
+    while True:
+        try:
+            os.system("cls")
+            print(edi)
+            piso=int(input("Ingrese el piso en el que se ubica el apartamento: "))
+            aparta=int(input("Ingrese el número de apartamento: "))
+            if piso-1>=len(edi) or aparta-1>=len(edi[0]) or piso-1<0 or aparta-1<0:
+                raise ValueError
+            return(piso,aparta)
+        except:
+            os.system("cls")
+            print("El apartamento ingresado no existe.")
+            input("Presione enter para reintentar. . .")
 
-def menu():
+def subMenu():
     x=0
     while x != 0:
         print("1) Alquilar apartamento\n" \
@@ -45,19 +121,11 @@ def verificarAlquiler(lista):
                 return True
     return False
 
-def desalojarApartamento(lista):
-    while True:
-        try:
-            piso = int(input("Ingrese el piso en el que se ubica el apartamento:\n\n"))
-            aparta = int(input("Ingrese el número de apartamento:\n\n"))
-            if piso>len(lista) or aparta>len(lista[0]):
-                raise ValueError
-            break
-        except ValueError:
-            print("El apartamento ingresado no existe.\n\n")
-    lista[piso-1][aparta-1] = 0
+def desalojarApartamento(edi):
+    aparta=buscarApartamento(edi)
+    edi[aparta[0]-1][aparta[1]-1] = 0
     print("El apartamento ha sido desalojado.")
-    return lista
+    return edi
 
 def infoAparta(piso,aparta,lista):
     if lista[piso-1][aparta-1]==0:
@@ -150,6 +218,3 @@ def ingresoAlquiler(lista):
     elif opcion==4:
         return print(ingresoTotal(lista))
     
-
-lista=[[1,2,3,4],[1,2,3,4],[1,2,3,0]]
-ingresoAlquiler(lista)
