@@ -1,12 +1,37 @@
 #laborado por: Luis Guillermo Alfaro Chacón y Xavier Céspedes Alvarado
 #Fecha de creación: 30/04/2025 16:30
-#Última modificación: 
+#Última modificación: 01/05/2025 21:30
 #Versión: 3.13.2
 
 #Importación de librerías. - - - - - - 
+import os                             # Se utilizó unicamente para los os.system("cls"). Para poder borrar la consola.
 import re
 
 #Definición de funciones. - - - - - -
+def subMenu(lista):
+    """
+    Funcionamiento:
+    - Es el submenú para la funcion obtenerDonadores.
+    - Se le pide al usuario una opción, y dependiendo de su elección, se realiza la acción.
+    Entradas:
+    - N/A
+    Salidas:
+    - Retorna la opción que se eligió.
+    """
+    print("Indique la provincia a buscar\n1) San José\n2) Alajuela\n3) Cartago\n4) Heredia\n" \
+    "5) Guanacaste\n6) Puntarenas\n7) Limón\n8) Nacionalizado/naturalizado (Extranjero)\n" \
+    "9) Partida especial de nacimiento (Casos especiales)")
+    prov=int(input("Provincia: "))
+    try:
+        if not re.match(r"[1-9]$",str(prov)):
+            raise ValueError
+        else:
+            os.system("cls")
+            return obtenerDonadores(prov,lista)
+    except ValueError:
+                os.system("cls")
+                return("Debe de ingresar una opción válida.")
+
 def agregarDonador(lista):
     """
     Funcionamiento:
@@ -17,20 +42,25 @@ def agregarDonador(lista):
     Salidas:
     - Retorna la lista con los donadores agregados.
     """
-    cantidad=int(input("Ingrese la cantidad de usuarios que desea agregar:\n"))
-    for i in range(cantidad):
-        while True:
-            try:
-                cedula=input("\nIngrese el número de cédula del donador:\n")
+    try:
+        os.system("cls")
+        cantidad=int(input("Ingrese la cantidad de usuarios que desea agregar:\n"))
+        for i in range(cantidad):
+            while True:
+                os.system("cls")
+                cedula=input("Ingrese el número de cédula del donador:\n")
                 if not re.match(r"[1-9]{1}\d{8}$",cedula):
-                    raise ValueError
+                    raise TypeError
                 if cedula in lista:
-                    raise ValueError
+                    raise TypeError
                 lista.append(cedula)
                 print("El donador ha sido agregado.")
+                input("Presione enter para continuar...")
                 break
-            except ValueError:
-                print("El número de cédula ingresado no es válido.")
+    except TypeError:
+        print("El número de cédula ingresado no es válido.")
+    except ValueError:
+        print("Debe de ingresar una cantidad válida.")
     return lista
 
 def decodificarDonador(lista):
@@ -52,7 +82,7 @@ def decodificarDonador(lista):
                 raise ValueError
             break
         except ValueError:
-            print("Debe ingresar un número de cédula válido.\n")
+            "Debe ingresar un número de cédula válido.\n"
     if donador in lista:
         return f"\nEl donador es de {cedulas[int(donador[0])-1][1]}, está registrado en el tomo {donador[1:5]} y el asiento {donador[5:]}."
     else:
@@ -77,5 +107,5 @@ def obtenerDonadores(provincia,lista):
             cantidad+=1
             donadores += i + "\n"
     if cantidad==0:
-        return "Aún no hay personas donadoras de esa naturalización."
+        return "Aún no hay personas donadoras de esa naturalización.\n"
     return f"Los donadores de {cedulas[provincia-1][1]}, son {cantidad} con las cédulas:{donadores}"
