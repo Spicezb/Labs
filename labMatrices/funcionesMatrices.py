@@ -2,9 +2,11 @@
 # Fecha de creación: 04/05/2025 21:45
 #
 # Versión de python: 3.13.2
-# Libreiras                                                                          
-import os
-# Funciones
+
+# Importación de librerías                                                                     
+import os                  #En varias funciones se cierra la vara antes de lograr ver el resultado, cambiar eso
+
+# Definición de funciones
 def crearEdificio(cP,cA):
     piso=[]
     for i in range(cP):
@@ -13,6 +15,21 @@ def crearEdificio(cP,cA):
             aparta.append(0)
         piso.append(aparta)
     return piso
+
+def verificarAlquiler(lista):
+    """
+    Funcionamiento:
+    - Verifica si existe algún apartamento alquilado.
+    Entradas:
+    lista(list): Es la matriz general del edificio.
+    Salidas:
+    - Retorna True si hay al menos un apartamento alquilado, y False si no.
+    """
+    for i in lista:
+        for n in i:       
+            if n!=0:
+                return True
+    return False
 
 def alquilarAparta(edi):
     while True:
@@ -61,7 +78,7 @@ def modificarRenta(edi):
                 if edi[aparta[0]-1][aparta[1]-1] != 0:
                     os.system("cls")
                     opcion=int(input(f"¿Desea modificar la renta del apartamento {aparta[1]} del piso {aparta[0]}\n" \
-                                    "1) Confirmar\n2) Cancelar\nOpcion: "))
+                                    "1) Confirmar\n2) Cancelar\nOpcion: ")) #Validar que no ponga otra opción Peneeeeeeeeeeeeeee
                     if opcion == 1:
                         os.system("cls")
                         monto=int(input("Digite el monto a modificar de este apartamento: "))
@@ -84,7 +101,7 @@ def modificarRenta(edi):
                         input("Presione enter para continuar.")
             else:
                 os.system("cls")
-                print("No hay apartamentos alquilados")
+                print("No hay apartamentos alquilados")  #Usar la frunción de verificar
                 input("Presione enter para continuar.")
                 return edi
         except:
@@ -114,14 +131,15 @@ def subMenu():
             "2) Modificar renta\n" \
             "3) Desalojar")
 
-def verificarAlquiler(lista):
-    for i in lista:
-        for n in i:                                              #############
-            if n!=0:
-                return True
-    return False
-
 def desalojarApartamento(edi):
+    """
+    Funcionamiento:
+    - Elimina el monto de un apartamento y lo reinicia en 0.
+    Entradas:
+    edi(list): Es la matriz general del edificio.
+    Salidas:
+    - Retorna la matriz modificada.
+    """
     if verificarAlquiler(edi)==False:
         return "No hay ningún apartamento alquilado.\n"
     aparta=buscarApartamento(edi)
@@ -130,27 +148,49 @@ def desalojarApartamento(edi):
     return edi
 
 def infoAparta(piso,aparta,lista):
+    """
+    Funcionamiento:
+    - Retorna el piso, el número de apartamento y el ingreso de un apartamento individual.
+    Entradas:
+    - lista(list): Es la matriz general del edificio.
+    - piso(int): Es el número de piso.
+    - aparta(int): Es el número de apartamento.
+    Salidas:
+    - Retorna el ingreso total del edificio.
+    """
     if lista[piso-1][aparta-1]==0:
         return f"\nPiso#{piso}\nApartamento#{aparta}\nEl apartamento no está alquilado."
     return f"\nPiso#{piso}\nApartamento#{aparta}\nMonto de alquiler: ${lista[piso-1][aparta-1]}"
 
 def ingresoApartamento(lista):
+    """
+    Funcionamiento:
+    - Calcula el ingreso de un apartamenbto individual.
+    Entradas:
+    - lista(list): Es la matriz general del edificio.
+    Salidas:
+    - Retorna el ingreso del apartamento.
+    """
     while True:
         try:
             piso = int(input("\nIngrese el piso en el que se ubica el apartamento:\n"))
             aparta = int(input("\nIngrese el número de apartamento:\n"))
             if piso>len(lista) or aparta>len(lista[0]) or aparta<=0 or piso<=0:
                 raise ValueError
-            elif type(piso)!=int or type(aparta)!=int:
-                raise TypeError
             break
         except ValueError:
             print("El apartamento ingresado no existe.\n")
-        except TypeError:
-            print("El piso y el apartamento deben ser valores enteros.\n")
     return infoAparta(piso,aparta,lista)
 
 def ingresoPiso(lista):
+    """
+    Funcionamiento:
+    - Calcula el ingreso total del piso e imprime el monto de cada apartamento.
+    Entradas:
+    - lista(list): Es la matriz general del edificio.
+    Salidas:
+    - Retorna el ingreso total del piso.
+    """
     ingreso=0
     aparta=0
     while True:
@@ -158,13 +198,9 @@ def ingresoPiso(lista):
             piso = int(input("\nIngrese el piso del que desea saber los ingresos:\n"))
             if piso>len(lista):
                 raise ValueError
-            elif type(piso)!=int:
-                raise TypeError
             break
         except ValueError:
             print("El piso ingresado no es válido.\n")
-        except TypeError:
-            print("El piso debe ser un valor entero.\n")
     for i in lista[piso-1]:
         ingreso+=i
         aparta+=1
@@ -172,25 +208,37 @@ def ingresoPiso(lista):
     return f"\nEl ingreso total en el piso {piso} es de: ${ingreso}."
 
 def ingresoColumna(lista):
+    """
+    Funcionamiento:
+    - Calcula el ingreso por columna e imprime el monto de cada apartamento.
+    Entradas:
+    - lista(list): Es la matriz general del edificio.
+    Salidas:
+    - Retorna el ingreso total de la columna.
+    """
     ingreso=0
     while True:
         try:
             columna = int(input("\nIngrese la columna de la que desea saber los ingresos:\n"))
-            if type(columna)!=int:
-                raise TypeError
-            elif columna>len(lista[0]) or columna<=0:
+            if columna>len(lista[0]) or columna<=0:
                 raise ValueError
             break
         except ValueError:
             print("La columna ingresada no es válida.\n")
-        except TypeError:
-            print("La columna debe ser un valor entero.\n")
     for i in enumerate(lista):
         ingreso+=lista[i[0]][columna-1]
         print(infoAparta(i[0]+1,columna,lista))
     return f"\nEl ingreso total en la columna {columna} es de: ${ingreso}."
 
 def ingresoTotal(lista):
+    """
+    Funcionamiento:
+    - Calcula el ingreso total del edificio e imprime el monto de cada apartamento.
+    Entradas:
+    - lista(list): Es la matriz general del edificio.
+    Salidas:
+    - Retorna el ingreso total del edificio.
+    """
     ingreso=0
     for i,n in enumerate(lista):
         for j,m in enumerate(n):
@@ -199,6 +247,14 @@ def ingresoTotal(lista):
     return f"\nEl ingreso total del edificio es de: ${ingreso}."
 
 def ingresoAlquiler(lista):
+    """
+    Funcionamiento:
+    - Imprime un menú con opciones para conocer la totalidad de ingresos en cierrtas partes del edificio o en su totalidad.
+    Entradas: 
+    - Lista(list): Es la matriz general del edificio.
+    Salidas:
+    - Llama a las diferentes funciones que calculan los ingresos del edificio.
+    """
     while True:
         try:
             opcion=int(input("1. Ingreso por apartamento.\n" \
@@ -221,6 +277,14 @@ def ingresoAlquiler(lista):
         return print(ingresoTotal(lista))
 
 def reporteTotal(lista):
+    """
+    Funcionamiento:
+    - Cuenta los apartamentos alquilados e imprime los porcentajes de apartamentos ocupados y desocupados.
+    Entradas:
+    - lista(list): Es la matriz general del edificio.
+    Salidas:
+    - Retorna los porcentajes y la cantidad de apartamentos alquilados y desocupados.
+    """
     totalApartas=len(lista[0])*len(lista)
     contador=0
     for i in lista:
