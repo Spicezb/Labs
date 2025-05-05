@@ -2,7 +2,6 @@
 # Fecha de creación 04/05/2025 21:45
 #
 # Versión de python 3.13.2
-
 # Libreiras                                                                          
 
 # Funciones
