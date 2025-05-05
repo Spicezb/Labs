@@ -96,7 +96,7 @@ def obtenerDonadores(provincia,lista):
     - lista(list): Es la lista que guarda los números de cédula de los donadores.
     - provincia(int): Es el dígito que identifica cada provincia.
     Salidas:
-    - Retornas los números de cédula de los donadores en la provincia.
+    - Retorna los números de cédula de los donadores en la provincia.
     """
     donadores="\n"
     cantidad=0
