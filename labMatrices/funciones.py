@@ -2,7 +2,7 @@
 # Fecha de creación 04/05/2025 21:45
 #
 # Versión de python 3.13.2
-# Libreiras
+# Libreiras                                                                          
 
 # Funciones
 def crearEdificio(cP,cA):
@@ -37,3 +37,4 @@ def menu():
         print("1) Alquilar apartamento\n" \
             "2) Modificar renta\n" \
             "3) Desalojar")
+
