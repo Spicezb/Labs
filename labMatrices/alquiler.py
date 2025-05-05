@@ -5,6 +5,9 @@
 from funciones import *
 
 def menu():
+    cantPisos= int(input("Digite la cantidad de pisos del edificio: "))
+    cantAparta= int(input("Digite la cantidad de apartamentos de los pisos: "))
+    edi=crearEdificio(cantPisos,cantAparta)
     x=0
     while x != 6:
         print("1) Alquilar apartamento\n" \
@@ -15,7 +18,7 @@ def menu():
             "6) Salir de la aplicacion")
         x=int(input("Opcion: "))
         if x == 1:
-            return alquilarAparta()
+            return alquilarAparta(edi)
     return 
 
 
