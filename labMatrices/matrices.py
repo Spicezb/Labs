@@ -10,7 +10,7 @@ import os
 #Definición de funciones
 def menu():
     cantPisos= int(input("Digite la cantidad de pisos del edificio: "))
-    cantAparta= int(input("Digite la cantidad de apartamentos en cada piso: "))
+    cantAparta= int(input("Digite la cantidad de apartamentos en cada piso: ")) #Validar pls
     edi=crearEdificio(cantPisos,cantAparta)
     while True:
         try:
