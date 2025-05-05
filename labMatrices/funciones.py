@@ -12,3 +12,11 @@ def menu():
         print("1) Alquilar apartamento\n" \
             "2) Modificar renta\n" \
             "3) Desalojar")
+
+def verificarAlquiler(lista):
+    for i in lista:
+        for n in i:
+            if n!=0:
+                return True
+    return False
+
