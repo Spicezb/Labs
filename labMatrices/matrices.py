@@ -2,7 +2,7 @@
 # Fecha de creación 04/05/2025 21:45
 #
 # Versión de python 3.13.2
-from funciones import *
+from funcionesMatrices import *
 import os 
 def menu():
     cantPisos= int(input("Digite la cantidad de pisos del edificio: "))
@@ -16,7 +16,7 @@ def menu():
                 print("1) Alquilar apartamento\n" \
                     "2) Modificar renta\n" \
                     "3) Desalojar\n" \
-                    "4)Indicar ingreso por alquiler\n" \
+                    "4) Indicar ingreso por alquiler\n" \
                     "5) Reporte total del edificio\n" \
                     "6) Salir de la aplicacion")
                 x=int(input("Opcion: "))
@@ -27,10 +27,9 @@ def menu():
                 elif x == 3:
                     edi=desalojarApartamento(edi)
                 elif x == 4:
-                    edi=ingresoAlquiler(edi)
+                    print(ingresoAlquiler(edi))
                 elif x == 5:
-                    #edi= reporteTotal(edi)
-                    print("pene")
+                    print(reporteTotal(edi))
                 else:
                     raise ValueError
         except ValueError:

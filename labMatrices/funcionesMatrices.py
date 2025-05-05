@@ -1,7 +1,7 @@
-# Trabajo realizado por Luis Guillermo ALfaro y Xavier Cespedes Alvarado
-# Fecha de creación 04/05/2025 21:45
+# Trabajo realizado por: Luis Guillermo Alfaro y Xavier Céspedes Alvarado
+# Fecha de creación: 04/05/2025 21:45
 #
-# Versión de python 3.13.2
+# Versión de python: 3.13.2
 # Libreiras                                                                          
 import os
 # Funciones
@@ -60,14 +60,14 @@ def modificarRenta(edi):
                 aparta=buscarApartamento(edi)
                 if edi[aparta[0]-1][aparta[1]-1] != 0:
                     os.system("cls")
-                    opcion=int(input(f"¿Desea aumentar o disminuir la renta del apartamento {aparta[1]} del piso{aparta[0]}\n" \
+                    opcion=int(input(f"¿Desea modificar la renta del apartamento {aparta[1]} del piso {aparta[0]}\n" \
                                     "1) Confirmar\n2) Cancelar\nOpcion: "))
                     if opcion == 1:
                         os.system("cls")
                         monto=int(input("Digite el monto a modificar de este apartamento: "))
                         if edi[aparta[0]-1][aparta[1]-1] != monto:
                             os.system("cls")
-                            print("El alquiler aumentó o disminuyó.\n" \
+                            print("El monto del alquiler se modificó.\n" \
                                 f"Precio anterior: ${edi[aparta[0]-1][aparta[1]-1]}\n" \
                                 f"Precio nuevo: ${monto}")
                             input("Presione enter para continuar.")
@@ -116,12 +116,14 @@ def subMenu():
 
 def verificarAlquiler(lista):
     for i in lista:
-        for n in i:
+        for n in i:                                              #############
             if n!=0:
                 return True
     return False
 
 def desalojarApartamento(edi):
+    if verificarAlquiler(edi)==False:
+        return "No hay ningún apartamento alquilado.\n"
     aparta=buscarApartamento(edi)
     edi[aparta[0]-1][aparta[1]-1] = 0
     print("El apartamento ha sido desalojado.")
@@ -217,4 +219,13 @@ def ingresoAlquiler(lista):
         return print(ingresoColumna(lista))
     elif opcion==4:
         return print(ingresoTotal(lista))
-    
+
+def reporteTotal(lista):
+    totalApartas=len(lista[0])*len(lista)
+    contador=0
+    for i in lista:
+        for n in i:
+            if n!=0:
+                contador+=1
+    return f"Total de apartamentos alquilados: {contador}, para un porcentaje de: {round(contador/totalApartas*100,2)}%\n" \
+        f"Total de apartamentos desocupados: {totalApartas-contador}, para un porcentaje de: {100-round(contador/totalApartas*100,2)}%"
