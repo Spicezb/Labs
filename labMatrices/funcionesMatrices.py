@@ -7,6 +7,17 @@
 import os                  #En varias funciones se cierra la vara antes de lograr ver el resultado, cambiar eso
 
 # Definición de funciones
+def cantidadAparta():
+    while True:
+        try:
+            cantPisos= int(input("Digite la cantidad de pisos del edificio: "))
+            cantAparta= int(input("Digite la cantidad de apartamentos en cada piso: "))
+            return crearEdificio(cantPisos,cantAparta)
+        except:
+            os.system("cls")
+            print("Ingrese un valor válido.")
+            input("Presione enter para continuar.")
+            os.system("cls")
 def crearEdificio(cP,cA):
     piso=[]
     for i in range(cP):
@@ -36,11 +47,12 @@ def alquilarAparta(edi):
         try:
             if dispo(edi)==True:
                 aparta=buscarApartamento(edi)
-                print(aparta)
                 if edi[aparta[0]-1][aparta[1]-1] == 0:
                     monto=int(input("Digite el monto del aquiler de este apartamento: "))
                     edi[int(aparta[0]-1)][int(aparta[1]-1)]=+monto
+                    os.system("cls")
                     print("El apartamento ha sido alquilado.")
+                    input("Presione enter para continuar.")
                     return edi
                 else:
                     raise TypeError
@@ -77,8 +89,8 @@ def modificarRenta(edi):
                 aparta=buscarApartamento(edi)
                 if edi[aparta[0]-1][aparta[1]-1] != 0:
                     os.system("cls")
-                    opcion=int(input(f"¿Desea modificar la renta del apartamento {aparta[1]} del piso {aparta[0]}\n" \
-                                    "1) Confirmar\n2) Cancelar\nOpcion: ")) #Validar que no ponga otra opción Peneeeeeeeeeeeeeee
+                    opcion=int(input(f"¿Desea modificar la renta del apartamento {aparta[1]} del piso {aparta[0]}?\n" \
+                                    "1) Confirmar\n2) Cancelar\nOpcion: ")) 
                     if opcion == 1:
                         os.system("cls")
                         monto=int(input("Digite el monto a modificar de este apartamento: "))
@@ -95,6 +107,8 @@ def modificarRenta(edi):
                             os.system("cls")
                             print("Debe de ingresar un monto diferente al anterior.")
                             input("Presione enter para continuar.")
+                    elif opcion != 2:
+                        raise ValueError
                     else:
                         os.system("cls")
                         print("El apartamento no ha sido alquilado.")
@@ -113,7 +127,6 @@ def buscarApartamento(edi):
     while True:
         try:
             os.system("cls")
-            print(edi)
             piso=int(input("Ingrese el piso en el que se ubica el apartamento: "))
             aparta=int(input("Ingrese el número de apartamento: "))
             if piso-1>=len(edi) or aparta-1>=len(edi[0]) or piso-1<0 or aparta-1<0:
@@ -141,10 +154,12 @@ def desalojarApartamento(edi):
     - Retorna la matriz modificada.
     """
     if verificarAlquiler(edi)==False:
-        return "No hay ningún apartamento alquilado.\n"
+        return "No hay ningún apartamento alquilado."
     aparta=buscarApartamento(edi)
     edi[aparta[0]-1][aparta[1]-1] = 0
+    os.system("cls")
     print("El apartamento ha sido desalojado.")
+    input("Presione enter para continuar.")
     return edi
 
 def infoAparta(piso,aparta,lista):
@@ -159,8 +174,10 @@ def infoAparta(piso,aparta,lista):
     - Retorna el ingreso total del edificio.
     """
     if lista[piso-1][aparta-1]==0:
-        return f"\nPiso#{piso}\nApartamento#{aparta}\nEl apartamento no está alquilado."
-    return f"\nPiso#{piso}\nApartamento#{aparta}\nMonto de alquiler: ${lista[piso-1][aparta-1]}"
+        os.system("cls")
+        return f"Piso #{piso}\nApartamento #{aparta}\nEl apartamento no está alquilado."
+    os.system("cls")
+    return f"Piso #{piso}\nApartamento#{aparta}\nMonto de alquiler: ${lista[piso-1][aparta-1]}"
 
 def ingresoApartamento(lista):
     """
@@ -173,13 +190,17 @@ def ingresoApartamento(lista):
     """
     while True:
         try:
-            piso = int(input("\nIngrese el piso en el que se ubica el apartamento:\n"))
-            aparta = int(input("\nIngrese el número de apartamento:\n"))
+            piso = int(input("Ingrese el piso en el que se ubica el apartamento:"))
+            aparta = int(input("Ingrese el número de apartamento:"))
+            os.system("cls")
             if piso>len(lista) or aparta>len(lista[0]) or aparta<=0 or piso<=0:
                 raise ValueError
             break
         except ValueError:
+            os.system("cls")
             print("El apartamento ingresado no existe.\n")
+            input("Presione enter para continuar.")
+            os.system("cls")
     return infoAparta(piso,aparta,lista)
 
 def ingresoPiso(lista):
@@ -195,17 +216,20 @@ def ingresoPiso(lista):
     aparta=0
     while True:
         try:
-            piso = int(input("\nIngrese el piso del que desea saber los ingresos:\n"))
+            piso = int(input("Ingrese el piso del que desea saber los ingresos: "))
             if piso>len(lista):
                 raise ValueError
             break
         except ValueError:
-            print("El piso ingresado no es válido.\n")
+            os.system("cls")
+            print("El piso ingresado no es válido.")
+            input("Presione enter para continuar.")
     for i in lista[piso-1]:
         ingreso+=i
         aparta+=1
+        os.system("cls")
         print(infoAparta(piso,aparta,lista))
-    return f"\nEl ingreso total en el piso {piso} es de: ${ingreso}."
+    return f"El ingreso total en el piso {piso} es de: ${ingreso}."
 
 def ingresoColumna(lista):
     """
@@ -219,16 +243,21 @@ def ingresoColumna(lista):
     ingreso=0
     while True:
         try:
-            columna = int(input("\nIngrese la columna de la que desea saber los ingresos:\n"))
+            columna = int(input("Ingrese la columna de la que desea saber los ingresos: "))
             if columna>len(lista[0]) or columna<=0:
                 raise ValueError
             break
         except ValueError:
-            print("La columna ingresada no es válida.\n")
+            os.system("cls")
+            print("La columna ingresada no es válida.")
+            input("Presione enter para continuar.")
+            os.system("cls")
     for i in enumerate(lista):
         ingreso+=lista[i[0]][columna-1]
+        os.system("cls")
         print(infoAparta(i[0]+1,columna,lista))
-    return f"\nEl ingreso total en la columna {columna} es de: ${ingreso}."
+
+    return f"El ingreso total en la columna {columna} es de: ${ingreso}."
 
 def ingresoTotal(lista):
     """
@@ -243,8 +272,9 @@ def ingresoTotal(lista):
     for i,n in enumerate(lista):
         for j,m in enumerate(n):
             ingreso+=m
+            os.system("cls")
             print(infoAparta(i+1,j+1,lista))
-    return f"\nEl ingreso total del edificio es de: ${ingreso}."
+    return f"El ingreso total del edificio es de: ${ingreso}."
 
 def ingresoAlquiler(lista):
     """
@@ -257,6 +287,7 @@ def ingresoAlquiler(lista):
     """
     while True:
         try:
+            os.system("cls")
             opcion=int(input("1. Ingreso por apartamento.\n" \
                             "2. Ingreso por piso.\n" \
                             "3. Ingreso por columna.\n" \
@@ -268,13 +299,22 @@ def ingresoAlquiler(lista):
         except ValueError:
             print("\nDebe indicar una opción válida.\n")
     if opcion==1:
-        return print(ingresoApartamento(lista))
+        os.system("cls")
+        print(ingresoApartamento(lista))
+        input("Presione enter para continuar.")
     elif opcion==2:
-        return print(ingresoPiso(lista))
+        os.system("cls")
+        print(ingresoPiso(lista))
+        input("Presione enter para continuar.")
     elif opcion==3:
-        return print(ingresoColumna(lista))
+        os.system("cls")
+        print(ingresoColumna(lista))
+        input("Presione enter para continuar.")
     elif opcion==4:
-        return print(ingresoTotal(lista))
+        os.system("cls")
+        print(ingresoTotal(lista))
+        input("Presione enter para continuar.")
+        
 
 def reporteTotal(lista):
     """
@@ -291,5 +331,6 @@ def reporteTotal(lista):
         for n in i:
             if n!=0:
                 contador+=1
+    os.system("cls")
     return f"Total de apartamentos alquilados: {contador}, para un porcentaje de: {round(contador/totalApartas*100,2)}%\n" \
         f"Total de apartamentos desocupados: {totalApartas-contador}, para un porcentaje de: {100-round(contador/totalApartas*100,2)}%"
