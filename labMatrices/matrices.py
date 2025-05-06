@@ -5,7 +5,7 @@
 
 #Importación de librerías
 from funcionesMatrices import *
-import os 
+import os                   # Se usa unicamente para limpiar pantalla
 
 #Definición de funciones
 def menu():

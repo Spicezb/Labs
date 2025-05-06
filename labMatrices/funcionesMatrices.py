@@ -4,7 +4,7 @@
 # Versión de python: 3.13.2
 
 # Importación de librerías                                                                     
-import os                  
+import os                  # Se usa unicamente para limpiar pantalla
 
 # Definición de funciones
 def cantidadAparta():
