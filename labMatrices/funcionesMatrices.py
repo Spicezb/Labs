@@ -1,13 +1,21 @@
 # Trabajo realizado por: Luis Guillermo Alfaro y Xavier Céspedes Alvarado
 # Fecha de creación: 04/05/2025 21:45
-#
+# Ultima actualizacion:05/05/2025 21
 # Versión de python: 3.13.2
 
 # Importación de librerías                                                                     
-import os                  #En varias funciones se cierra la vara antes de lograr ver el resultado, cambiar eso
+import os                  
 
 # Definición de funciones
 def cantidadAparta():
+    """
+    Funcionamiento:
+    - Pide la estructura de la matriz.
+    Entradas:
+    - N/A
+    Salidas:
+    - Los valores de la matriz.
+    """
     while True:
         try:
             cantPisos= int(input("Digite la cantidad de pisos del edificio: "))
@@ -18,7 +26,17 @@ def cantidadAparta():
             print("Ingrese un valor válido.")
             input("Presione enter para continuar.")
             os.system("cls")
+
 def crearEdificio(cP,cA):
+    """
+    Funcionamiento:
+    - Crea la matriz principal.
+    Entradas:
+    cP(int): Es la cantidad de pisos del edificio.
+    cA(int): Es la cantidad de apartamentos del edificio.
+    Salidas:
+    - Retorna la matriz.
+    """
     piso=[]
     for i in range(cP):
         aparta = []
@@ -43,6 +61,15 @@ def verificarAlquiler(lista):
     return False
 
 def alquilarAparta(edi):
+    """
+    Funcionamiento:
+    - Registra los alquileres, si todos los apartamentos estan ocupados, lo notifica, y si se
+    quiere registrar uno que tambien este ocupado, este tambien lo notifica.
+    Entradas:
+    edi(list): Es la matriz general del edificio.
+    Salidas:
+    - Retorna la matriz actualizada.
+    """
     while True:
         try:
             if dispo(edi)==True:
@@ -71,12 +98,31 @@ def alquilarAparta(edi):
             input("Presione enter para reintentar. . .")
 
 def dispo(edi):
+    """
+    Funcionamiento:
+    - Verifica si existe algún apartamento sin alquilar, este se utiliza en funciones que se necesita que solo
+    retorne true al tener apartamentos libres, y no retornar nada si no.
+    Entradas:
+    edi(list): Es la matriz general del edificio.
+    Salidas:
+    - Retorna True si hay al menos un apartamento sin alquilar.
+    """
     for i in range(len(edi)):
         for n in range(len(edi[i])):
             if edi[i][n]==0:
                 return True
 
 def modificarRenta(edi):
+    """
+    Funcionamiento:
+    - Modifica los alquileres, si todos los apartamentos estan ocupados, lo notifica, y si se
+    quiere registrar uno que tambien este ocupado, este tambien lo notifica, si se quiere modificar
+    un apartamento y le ponen el mismo precio, este lo va a notificar tambien.
+    Entradas:
+    edi(list): Es la matriz general del edificio.
+    Salidas:
+    - Retorna la matriz actualizada.
+    """
     while True:
         try:
             piso=[]
@@ -115,7 +161,7 @@ def modificarRenta(edi):
                         input("Presione enter para continuar.")
             else:
                 os.system("cls")
-                print("No hay apartamentos alquilados")  #Usar la frunción de verificar
+                print("No hay apartamentos alquilados")
                 input("Presione enter para continuar.")
                 return edi
         except:
@@ -124,6 +170,14 @@ def modificarRenta(edi):
             input("Presione enter para continuar.")
 
 def buscarApartamento(edi):
+    """
+    Funcionamiento:
+    - Busca el piso y el numero de apartamento.
+    Entradas:
+    edi(list): Es la matriz general del edificio.
+    Salidas:
+    - Retorna las direcciones del apartamento.
+    """
     while True:
         try:
             os.system("cls")

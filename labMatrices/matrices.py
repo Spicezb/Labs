@@ -1,6 +1,6 @@
 # Trabajo realizado por Luis Guillermo ALfaro y Xavier Cespedes Alvarado
 # Fecha de creación 04/05/2025 21:45
-#
+## Ultima actualizacion:05/05/2025 21:20
 # Versión de python 3.13.2
 
 #Importación de librerías
@@ -9,6 +9,14 @@ import os
 
 #Definición de funciones
 def menu():
+    """
+    Funcionamiento:
+    - Menu de funciones, depende de la opcion elegida, este hace la accion asignada.
+    Entradas:
+    - N/A
+    Salidas:
+    - Retorna el valor de la cada funcion.
+    """
     while True:
         try:
             cantidadAparta()
