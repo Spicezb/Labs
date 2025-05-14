@@ -4,7 +4,7 @@
 #Versión: 3.13.3
 
 #Importación de librerías
-from labDiccionarios.funcionesLabDiccionarios import *
+from funcionesLabDiccionarios import *
 
 #Definición de funciones
 def verificarBase(archivo):
