@@ -7,6 +7,7 @@
 import pickle
 import re
 import os
+
 #Definición de funciones
 def leer(archivo):
     """
@@ -62,6 +63,7 @@ def elegirDeporte(dicc):
     - Retorna el código del deporte elegido por el usuario.
     """
     activos=[]
+    print()
     for i in dicc:
         if dicc[i][3]==True:
             activos.append(i)
@@ -87,7 +89,7 @@ def confirmar():
     """
     while True:
         try:
-            confirmacion=input("¿Desea confirmar la eliminación?:\n1. Confirmar\n2.Cancelar\nDigite una opción:\n")
+            confirmacion=input("\n¿Desea confirmar?:\n1. Confirmar\n2. Cancelar\nDigite una opción:\n")
             if confirmacion not in ("1","2"):
                 raise ValueError
             break
@@ -108,11 +110,11 @@ def eliminarDeporte(archivo):
     elim=elegirDeporte(dicc)
     confirmacion=confirmar()
     if confirmacion=="1":
-        dicc[elim][2]=False
+        dicc[elim][3]=False
         grabar(dicc,archivo)
-        print("\nDeporte eliminado satisfactoriamente.")
+        print("\nDeporte eliminado satisfactoriamente.\n")
     else:
-        print("El deporte no se eliminó.")
+        print("El deporte no se eliminó.\n")
     return ""
 
 def modificarDeporte(archivo):
@@ -126,7 +128,6 @@ def modificarDeporte(archivo):
     """
     dicc=leer(archivo)
     modificar=elegirDeporte(dicc)
-    confirmacion=confirmar()
     original=dicc[modificar][0]
     while True:
         try:
@@ -136,9 +137,11 @@ def modificarDeporte(archivo):
             break
         except ValueError:
             print("\nEl nuevo nombre debe ser distinto al anterior.\n")
+    confirmacion=confirmar()
     if confirmacion == "1":
         dicc[modificar][0]=nuevo
-        print(f"El nombre del deporte ha sido cambiado\nNombre anterior: {original}\nNuevo nombre: {nuevo}")
+        print(f"\nEl nombre del deporte ha sido cambiado.\nNombre anterior: {original}\nNuevo nombre: {nuevo}\n")
+        grabar(dicc,archivo)
     else:
         print("El deporte no ha sido modificado.")
     return ""
