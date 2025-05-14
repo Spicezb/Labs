@@ -1,5 +1,12 @@
+#Elaborado por: Xavier Céspedes Alvarado y Luis Guillermo Alfaro
+#Fecha de creación: 13/05/2025
+#Última modificación: 13/05/2025
+#Versión: 3.13.3
+
+#Importación de librerías
 import pickle
 
+#Definición de funciones
 def lee(archivo):
     base=open(archivo,"rb")
     dicc=pickle.load(base)
@@ -69,3 +76,4 @@ def modificarDeporte(archivo):
         print(f"El nombre del deporte ha sido cambiado\nNombre anterior: {original}\nNuevo nombre: {nuevo}")
     else:
         print("El deporte no ha sido modificado.")
+    return ""
