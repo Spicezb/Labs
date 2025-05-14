@@ -5,7 +5,8 @@
 
 #Importación de librerías
 import pickle
-
+import re
+import os
 #Definición de funciones
 def leer(archivo):
     """
@@ -35,6 +36,21 @@ def grabar(dicc,archivo):
     pickle.dump(dicc,base)
     base.close
     return ""
+
+def registrarDeporte(archivo):
+    try:
+        x=leer(archivo)
+    except:
+        grabar({},archivo)
+        x=leer(archivo)
+    regisDepor={}
+    codDepo=input("Ingrese el codigo del deporte: ")
+    nomDepo=input("Ingrese el nombre del deporte: ")
+    ExpliDepo=input("Ingrese una expliación corta del deporte: ")
+    lugarDepo=input("Ingrese el lugar donde se desarrolla: ")
+    estaDepo=True
+    x[codDepo]=[nomDepo,ExpliDepo,lugarDepo,estaDepo]
+    grabar(x,archivo)
 
 def elegirDeporte(dicc):
     """
@@ -92,7 +108,7 @@ def eliminarDeporte(archivo):
     elim=elegirDeporte(dicc)
     confirmacion=confirmar()
     if confirmacion=="1":
-        dicc[elim][3]=False
+        dicc[elim][2]=False
         grabar(dicc,archivo)
         print("\nDeporte eliminado satisfactoriamente.")
     else:
@@ -126,3 +142,97 @@ def modificarDeporte(archivo):
     else:
         print("El deporte no ha sido modificado.")
     return ""
+
+def eliminados(archivo):
+    conta=0
+    lol=leer(archivo)
+    for i in lol:
+        x=lol.get(i)
+        if x[2] == False:
+            conta+=1
+            os.system("cls")
+            print(x)
+            input("Presione enter para continuar.")
+            os.system("cls")
+    if conta==0:
+        os.system("cls")
+        print("No hay deportes eliminados")
+        input("Presione enter para continuar.")
+        os.system("cls")
+
+def buscarLugar(archivo):
+    lol=leer(archivo)
+    lugar=input("Ingrese el lugar del deporte: ")
+    os.system("cls")
+    print(f"Resultados relacionados con '{lugar}'")
+    for i in lol:
+        x=lol.get(i)
+        if re.search(lugar.lower(), x[2].lower()):
+            for n in range(len(x)-1):
+                print(x[n])
+                if x[-1]==True:
+                    print("Estado Activo")
+                else:
+                    print("Estado Inactivo")
+            print("")
+    input("Presione enter para continuar.")
+    os.system("cls")
+
+def buscarSubMEnu(archivo):
+    conta=0
+    lol=leer(archivo)
+    print("Codigos")
+    for i in lol:
+        conta+=1
+        x=lol.get(i)
+        if x[-1]==True:
+            print(f"{conta}) {i} {x[0]}")
+    opcion=input("Ingrese el codigo correspondiente: ")
+    os.system("cls")
+    for n in lol[opcion][:-1]:
+        print(n)
+    input("Presione enter para continuar.")
+    os.system("cls")
+
+def buscarPor(archivo):
+    lol=leer(archivo)
+    print("INFORMACIÓN:")
+    for i in  lol:
+        print("")
+        x=lol.get(i)
+        print(f"Clave: {i}")
+        for j in range(len(x)-1):
+            print(x[j])
+        if x[-1]==True:
+            print("Estado Activo")
+        else:
+            print("Estado Innactivo")
+    input("Presione enter para continuar.")
+    os.system("cls")
+    return True
+
+def subMenu(archivo):
+    opcion=0
+    while opcion != 5:
+        try:
+            opcion=int(input("1) Información completa de todos los deportes.\n" \
+                    "2) Información de un deporte.\n" \
+                    "3) Deportes según lugar.\n" \
+                    "4) Lista de deportes eliminados.\n" \
+                    "5) Salir\n" \
+                    "Opción: "))
+            os.system("cls")
+            if opcion == 1:
+                buscarPor(archivo)
+            elif opcion == 2:
+                buscarSubMEnu(archivo)
+            elif opcion == 3:
+                buscarLugar(archivo)
+            elif opcion == 4:
+                eliminados(archivo)
+            elif opcion == 5:
+                print("")
+            else:
+                raise ValueError
+        except:
+            print("Debe de ingresar una opcion valida.")
