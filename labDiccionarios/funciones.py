@@ -10,4 +10,4 @@ def graba(dicc,archivo):
     base=open(archivo,"wb")
     pickle.dump(dicc,base)
     base.close
-    return ""
+    return True
