@@ -4,19 +4,34 @@
 #Versión: 3.13.3
 
 #Importación de librerías
-from funciones import *
+from labDiccionarios.funcionesLabDiccionarios import *
 
 #Definición de funciones
 def verificarBase(archivo):
+    """
+    Funcionamiento:
+    - Verifica la existencia de la base de datos, si no existe la crea.
+    Entradas:
+    - archivo(str): Es el archivo que contiene la base de datos de deportes.
+    Salidas:
+    - Llama a la función menu.
+    """
     try:
-        base=open(archivo,"rb")
-        base.close
+        leer(archivo)
     except FileNotFoundError:
         diccionario={}
-        graba(diccionario,archivo)
+        grabar(diccionario,archivo)
     return menu(archivo)
 
 def menu(archivo):
+    """
+    Funcionamiento:
+    - Solicita al usuario la opción que requiere realizar.
+    Entradas:
+    - archivo(str): Es el archivo que contiene la base de datos de deportes.
+    Salidas:
+    - Realiza la opción y vuelve al menú, si el usuario selecciona la opción de salir, sale del programa y lo indica.
+    """
     while True:
         try:
             x=0
@@ -24,8 +39,9 @@ def menu(archivo):
                 print("1. Registrar deporte.\n" \
                 "2. Modificar deporte.\n" \
                 "3. Eliminar deporte.\n" \
-                "4. Buscar por.")
-                x=int(input("Opción: "))
+                "4. Buscar por.\n" \
+                "5. Salir")
+                x=int(input("Opción:\n"))
                 if x == 1:
                     registrarDeporte(archivo)
                 elif x == 2:
@@ -42,5 +58,5 @@ def menu(archivo):
             print("Debe indicar una opción válida.")
 
 #Código principal
-archivo="deportesTec"
+archivo="baseDeDatosDeportes"
 print(verificarBase(archivo))
