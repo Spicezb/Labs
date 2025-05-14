@@ -43,4 +43,4 @@ def menu(archivo):
 
 #Código principal
 archivo="deportesTec"
-print(menu(archivo))
+print(verificarBase(archivo))
