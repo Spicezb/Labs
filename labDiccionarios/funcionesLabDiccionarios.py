@@ -153,7 +153,9 @@ def elegirDeporte(dicc):
             for i in dicc:
                 if dicc[i][3]==True:
                     activos.append(i)
-                print(f"{i}: {dicc[i][0]}")
+                    print(f"{i}: {dicc[i][0]}")
+            if activos==[]:
+                return False
             opcion=input("Seleccione un deporte ingresando su código: ")
             if opcion not in activos:
                 raise ValueError
@@ -200,6 +202,10 @@ def eliminarDeporte(archivo):
     """
     dicc=leer(archivo)
     elim=elegirDeporte(dicc)
+    if elim==False:
+        print("No hay ningún deporte activo")
+        input("Presione enter para continuar.")
+        return ""
     confirmacion=confirmar()
     if confirmacion=="1":
         dicc[elim][3]=False
@@ -221,6 +227,10 @@ def modificarDeporte(archivo):
     """
     dicc=leer(archivo)
     modificar=elegirDeporte(dicc)
+    if modificar==False:
+        print("No hay ningún deporte activo")
+        input("Presione enter para continuar.")
+        return ""
     original=dicc[modificar][0]
     while True:
         try:
@@ -265,13 +275,11 @@ def eliminados(archivo):
                 print(x[n])
                 conta+=1
         print("")
-    input("Presione enter para continuar.")
-    os.system("cls")
     if conta==0:
         os.system("cls")
         print("No hay deportes eliminados")
-        input("Presione enter para continuar.")
-        os.system("cls")
+    input("Presione enter para continuar.")
+    os.system("cls")
     return True
 
 def buscarLugar(archivo):
