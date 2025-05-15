@@ -153,7 +153,7 @@ def elegirDeporte(dicc):
             for i in dicc:
                 if dicc[i][3]==True:
                     activos.append(i)
-            print(f"{i}: {dicc[i][0]}")
+                print(f"{i}: {dicc[i][0]}")
             opcion=input("Seleccione un deporte ingresando su código: ")
             if opcion not in activos:
                 raise ValueError
@@ -207,6 +207,7 @@ def eliminarDeporte(archivo):
         print("Deporte eliminado satisfactoriamente.")
     else:
         print("El deporte no se eliminó.")
+        input("Presione enter para continuar.")
     return ""
 
 def modificarDeporte(archivo):
@@ -241,6 +242,7 @@ def modificarDeporte(archivo):
         grabar(dicc,archivo)
     else:
         print("El deporte no ha sido modificado.")
+        input("Presione enter para continuar.")
     return ""
 
 def eliminados(archivo):
