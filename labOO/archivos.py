@@ -17,21 +17,21 @@ def leer(archivo):
     - Retorna el diccionario.
     """
     base=open(archivo,"rb")
-    dicc=pickle.load(base)
+    datos=pickle.load(base)
     base.close()
-    return dicc
+    return datos
 
-def grabar(dicc,archivo):
+def grabar(datos,archivo):
     """
     Funcionamiento:
     - Graba el diccionario actualizado en el archivo.
     Entradas:
-    - dicc(dict): Es el diccionario a grabar.
+    - datos(dict o list): Contiene los datos a grabar.
     - archivo(str): Es el archivo que contiene el diccionario con la información de los pokemones.
     Salidas:
     - Graba el diccionario en el archivo y retorna un string vacío.
     """
     base=open(archivo,"wb")
-    pickle.dump(dicc,base)
+    pickle.dump(datos,base)
     base.close()
     return ""
