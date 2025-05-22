@@ -9,7 +9,6 @@ import re
 # import clasePersona
 
 #Definición de funciones
-
 def verificarBase(archivo):
     """
     Funcionamiento:
@@ -64,15 +63,19 @@ def confirmar():
     else:
         return False
 
-def modificarNombre(objeto,nombre):
+def modificar(objeto,datoNuevo,opcion):
     """
     Funcionamiento:
-    - Modifica el nombre de un miembro.
+    - Modifica el atributo de un objeto.
     Entradas:
-    - objeto(): Es el miembro al que se le modifica el nombre.
-    - nombre(str): Es el nuevo nombre que recibe el miembro.
+    - objeto(): Es el objeto al que se le modifica un atributo.
+    - datoNuevo(str o bool): Es el nuevo dato que se le da al atributo del objeto.
+    - opcion(int): Es el atributo que se le modifica al objeto. 1=Nombre y 2=Estado.
     Salidas:
-    - Cambia el nombre del miembro y retorna un str vacío.
+    - Cambia el atributo y retorna un str vacío.
     """
-    objeto.setNombre(nombre)
+    if opcion==1:
+        objeto.setNombre(datoNuevo)
+    else:
+        objeto.setEstado(datoNuevo)
     return ""
