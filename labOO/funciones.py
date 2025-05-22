@@ -5,24 +5,34 @@
 
 #Importación de librerías
 from archivos import *
+import re
 # import clasePersona
 
 #Definición de funciones
 
 def verificarBase(archivo):
+    """
+    Funcionamiento:
+    - Verifica que la base de datos exista, y si no existe la crea.
+    Entradas:
+    - archivo(str): Es el nombre del archivo de la base de datos.
+    Salidas:
+    - Si la base existe retorna un str vacío, y si la crea retorna un string explicando.
+    """
     try:
         base=open(archivo,"rb")
         base.close
     except:
         grabar([],archivo)
-    return "La base de datos ha sido creada."
+        return "La base de datos ha sido creada."
+    return ""
 
 def annadir(objeto,lista,archivo):
     """
     Funcionamiento:
     - Añade un objeto a la base de datos.
     Entradas:
-    - objeto()
+    - objeto(): El el objeto que se añade a la lista.
     - lista(list): Es la lista que contiene todos los objetos.
     - archivo(str): Es el nombre del archivo donde se guarda la lista.
     Salidas:
@@ -33,6 +43,14 @@ def annadir(objeto,lista,archivo):
     return lista
 
 def confirmar():
+    """
+    Funcionamiento:
+    - Permite al usuario confirmar la acción.
+    Entradas:
+    - N/A
+    Salidas:
+    - Retorna True o False dependiendo de la confirmación.
+    """
     while True:
         try:
             confirmacion=input("1. Confirmar\n2. Cancelar\nDigite una opción: ")
@@ -47,16 +65,14 @@ def confirmar():
         return False
 
 def modificarNombre(objeto,nombre):
+    """
+    Funcionamiento:
+    - Modifica el nombre de un miembro.
+    Entradas:
+    - objeto(): Es el miembro al que se le modifica el nombre.
+    - nombre(str): Es el nuevo nombre que recibe el miembro.
+    Salidas:
+    - Cambia el nombre del miembro y retorna un str vacío.
+    """
     objeto.setNombre(nombre)
     return ""
-
-# def modificarNombreAux(lista):
-#     while True:
-#         try:
-#             cedula=input("Ingrese la cédula del miembro que desea modificar: ")
-#             for i in lista:
-#                 if i.getCedula==cedula:
-#                     nombre=input("Ingrese el nuevo nombre: ")
-#                     if confirmar()==True:
-#                         modificarNombre(i,nombre)
-#                         return
