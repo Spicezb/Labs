@@ -13,40 +13,27 @@ from clasePersona import*
 def modificarNombreAux(lista):
     """
     Funcionamiento:
-    - Valida el nombre y la cédula del miembro que se requiere modificar.
+    - Valida el nuevo nombre y reemplaza el antiguo.
     Entradas:
     - lista(list): Es la lista que contiene todos los objetos.
     Salidas:
     - Llama a la función principal y retorna un str según corresponda.
     """
-    cedulas=[]
-    while True:
-        try:
-            cedula=input("Ingrese la cédula del miembro que desea modificar: ")
-            if not re.match(r"[1-9]\d{8}$",cedula):
-                raise TypeError
-            for i in lista:
-                cedulas.append(i.getCedula())
-            if cedula not in cedulas:
-                raise ValueError
-            objeto=lista[cedulas.index(cedula)]
-            break
-        except ValueError:
-            print("La cédula ingresada no se encuentra registrada.\n")
-        except TypeError:
-            print("Formato incorrecto.\nLa cedula debe de iniciar distinto a 0 y tener una longitud de 9.\n")
+    objeto=obtenerCedula(lista)
     while True:
         try:
             nombre=tuple(input("Ingrese el nuevo nombre con sus dos apellidos: ").split())
             if len(nombre)!=3:
-                raise ValueError
+                raise ValueError("Debe ingresar un nombre con dos apellidos.\n")
+            elif nombre==objeto.getNombre():
+                raise ValueError("El nuevo nombre no puede ser igual al actual.\n")
             break
-        except:
-            print("Debe ingresar un nombre con dos apellidos.\n")
+        except ValueError as e:
+            print(e)
     if confirmar()==True:
         modificar(objeto,nombre,1)
-        return print("El nombre fue modificado\n")
-    return print("La acción fue cancelada y el nombre no se modificó.\n")
+        return "El nombre fue modificado"
+    return "La acción fue cancelada y el nombre no se modificó."
 
 def eliminarAux(lista):
     """
@@ -125,7 +112,7 @@ def insertarMiembro(lista,archivo):
         miembro.setProfesion(lstTrabajos[trab])
         miembro.setEstado(random.choice([True,False]))
         annadir(miembro,lista,archivo)
-    print("Los miembros se crearon exitosamente.")
+    print("Los miembros se crearon exitosamente.\n")
     return lista 
 
 def categorias(lista):
@@ -152,10 +139,9 @@ def categorias(lista):
                         if i.getCategoria()[0] == 4 and i.getEstado()==True:
                             print(i.getDatos())
                 elif opcion==5:
-                    break
+                    return ""
                 else:
-                    ValueError
-            break
+                    raise ValueError
         except ValueError:
             print("Debe ingresar una opción valida.")
 
@@ -163,11 +149,19 @@ def subMenu(lista):
     while True:
         try:
             opcion=0
-            while opcion!=5:
+            while opcion!=4:
                 opcion=int(input("1) Información general.\n2) Información por categoría.\n3) Información por cédula.\n" \
                                 "4) Salir.\nOpcion: "))
-                if opcion==2:
+                if opcion==1:
+                    reporteTotal(lista)
+                elif opcion==2:
                     categorias(lista)
+                elif opcion==3:
+                    reporteCedula(lista)
+                elif opcion == 4:
+                    return ""
+                else:
+                    raise ValueError
         except ValueError:
             print("Debe ingresar una opción valida.")
 

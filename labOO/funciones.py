@@ -135,21 +135,6 @@ def reporteTotal(lista):
             print(f"{i.getDatos()}\n")
     return ""
 
-def reporteCedula(lista):
-    """
-    Funcionamiento:
-    - Imprime los datos del miembro con dicha cédula.
-    Entradas:
-    - lista(list): Es la lista que contiene los objetos.
-    Salidas:
-    - Imprime los datos del miembro.
-    """
-    objeto=obtenerCedula(lista)
-    if objeto.getEstado()==False:
-        return print("La persona no forma parte del equipo.\n")
-    print(f"{objeto.getDatos()}\n")
-    return ""
-
 def obtenerCedula(lista):
     """
     Funcionamiento:
@@ -175,3 +160,18 @@ def obtenerCedula(lista):
             print("La cédula ingresada no se encuentra registrada.")
         except TypeError:
             print("Formato incorrecto.\nLa cedula debe de iniciar distinto a 0 y tener una longitud de 9.")
+
+def reporteCedula(lista):
+    """
+    Funcionamiento:
+    - Imprime los datos del miembro con dicha cédula.
+    Entradas:
+    - lista(list): Es la lista que contiene los objetos.
+    Salidas:
+    - Imprime los datos del miembro.
+    """
+    objeto=obtenerCedula(lista)
+    if objeto.getEstado()==False:
+        return print("La persona no forma parte del equipo.\n")
+    print(f"{objeto.getDatos()}\n")
+    return ""
