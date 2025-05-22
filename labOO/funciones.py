@@ -196,6 +196,7 @@ def obtenerCedula(lista):
     - Retorna el objeto.
     """
     cedulas=[]
+    cedulasActivas=False
     while True:
         try:
             cedula=input("\nIngrese la cédula del miembro: ")
@@ -203,8 +204,10 @@ def obtenerCedula(lista):
                 raise TypeError
             for i in lista:
                 cedulas.append(i.getCedula())
-            if cedulas==[]:
-                return "No hay ninguna cédula que modificar.\n"
+                if i.getEstado()==True:
+                    cedulasActivas=True
+            if cedulas==[] or cedulasActivas==False:
+                return False
             elif cedula not in cedulas:
                 raise ValueError
             objeto=lista[cedulas.index(cedula)]

@@ -18,6 +18,8 @@ def modificarNombreAux(lista):
     - Llama a la función principal y retorna un str según corresponda.
     """
     objeto=obtenerCedula(lista)
+    if objeto==False:
+        return "No hay ningún miembro que modificar"
     if objeto.getEstado()==False:
         return "No se puede modificar, pues el miembro no forma parte del equipo de trabajo."
     while True:
@@ -45,6 +47,8 @@ def eliminarAux(lista):
     - Llama a la función principal y retorna un str según corresponda.
     """
     objeto=obtenerCedula(lista)
+    if objeto==False:
+        return "No hay ningún miembro que eliminar."
     if objeto.getEstado()==True:
         if confirmar()==True:
             modificar(objeto,False,2)
