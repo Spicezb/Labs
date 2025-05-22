@@ -153,6 +153,8 @@ def categorias(lista):
                             print(i.getDatos())
                 elif opcion==5:
                     break
+                else:
+                    ValueError
             break
         except ValueError:
             print("Debe ingresar una opción valida.")
