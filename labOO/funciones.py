@@ -203,7 +203,9 @@ def obtenerCedula(lista):
                 raise TypeError
             for i in lista:
                 cedulas.append(i.getCedula())
-            if cedula not in cedulas:
+            if cedulas==[]:
+                return "No hay ninguna cédula que modificar.\n"
+            elif cedula not in cedulas:
                 raise ValueError
             objeto=lista[cedulas.index(cedula)]
             return objeto
