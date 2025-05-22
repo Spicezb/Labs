@@ -8,7 +8,7 @@ from archivos import *
 import re
 import names
 import random
-# import clasePersona
+from clasePersona import *
 
 #Definición de funciones
 def verificarBase(archivo):
@@ -104,6 +104,53 @@ def determinarPerso(pcate,pperso):
     else:
         return lstExplora[pperso-1]
 
+def insertarMiembro(lista,archivo):
+    """
+    Funcionamiento:
+    - Se le pide al ususario la cantidad de miembros de trabajo, para crearlos ficticiamente.
+    - Se crea la cantidad de personas indicada.
+    Entradas:
+    - lista(list): Es la lista que contiene todos los objetos.
+    - archivo(str): Es el nombre del archivo donde se guarda la lista.
+    Salidas:
+    - Retorna un mensaje indicando que se agregaron crearon exitosamente.
+    """
+    lstCed=[]
+    lstTrabajos=["Software Developer","Analyst","Engineer","Game designer","Web designer","Designer","Game programmer","Webmaster",
+                "Web developer","Network administrator","Software Engineer","Scientist","Video game developer","Data Engineer",
+                "Strategist","Web Application Developer","Java Developer"]
+    while True:
+        try:
+            cantMiembros=int(input("Ingrese la cantidad de personas en el equipo de trabajo: "))
+            if cantMiembros<=0:
+                raise TypeError
+            break
+        except ValueError:
+            print("Debe ingresar un valor númerico\n")
+        except TypeError:
+            print("Debe ingresar un valor mayor a 0\n")
+    for i in range(cantMiembros):
+        miembro=Persona()
+        nombre=crearNombres()
+        cedula=random.randint(100000000,999999999)
+        if cedula in lstCed:
+            while cedula in lstCed:
+                cedula=random.randint(100000000,999999999)
+        lstCed.append(cedula)
+        categoria=random.randint(1,4)
+        perso=random.randint(1,4)
+        trab=random.randint(0,len(lstTrabajos)-1)
+        persoDefini=determinarPerso(categoria,perso)
+
+        miembro.setNombre(nombre)
+        miembro.setCedula(str(cedula))
+        miembro.setCategoria([categoria,persoDefini])
+        miembro.setProfesion(lstTrabajos[trab])
+        miembro.setEstado(random.choice([True,False]))
+        annadir(miembro,lista,archivo)
+    print("Los miembros se crearon exitosamente.")
+    return lista 
+
 def modificar(objeto,datoNuevo,opcion):
     """
     Funcionamiento:
@@ -132,7 +179,7 @@ def reporteTotal(lista):
     """
     for i in lista:
         if i.getEstado()==True:
-            print(f"{i.getDatos()}\n")
+            print(f"\n{i.getDatos()}")
     return ""
 
 def obtenerCedula(lista):
@@ -157,9 +204,9 @@ def obtenerCedula(lista):
             objeto=lista[cedulas.index(cedula)]
             return objeto
         except ValueError:
-            print("La cédula ingresada no se encuentra registrada.")
+            print("La cédula ingresada no se encuentra registrada.\n")
         except TypeError:
-            print("Formato incorrecto.\nLa cedula debe de iniciar distinto a 0 y tener una longitud de 9.")
+            print("Formato incorrecto.\nLa cedula debe de iniciar distinto a 0 y tener una longitud de 9.\n")
 
 def reporteCedula(lista):
     """
@@ -172,6 +219,6 @@ def reporteCedula(lista):
     """
     objeto=obtenerCedula(lista)
     if objeto.getEstado()==False:
-        return print("La persona no forma parte del equipo.\n")
-    print(f"{objeto.getDatos()}\n")
+        return print("La persona no forma parte del equipo.")
+    print(f"\n{objeto.getDatos()}")
     return ""
