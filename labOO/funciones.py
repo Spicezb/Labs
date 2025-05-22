@@ -177,9 +177,13 @@ def reporteTotal(lista):
     Salidas:
     - Imprime los datos de todos los objetos.
     """
+    existeAlguno=False
     for i in lista:
         if i.getEstado()==True:
+            existeAlguno=True
             print(f"\n{i.getDatos()}")
+    if existeAlguno==False:
+        return "\nNo hay ningún miembro en el equipo."
     return ""
 
 def obtenerCedula(lista):
