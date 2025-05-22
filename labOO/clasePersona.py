@@ -1,3 +1,8 @@
+# Elaborado por: Xavier Céspedes Alvarado y Luis GUillermo Alfaro Chacón
+# Fecha de creación: 21/05/2025 16:45
+# Última modificación: 21/05/2025 21:53
+# Versión: 3.13.3
+
 class Persona:
 # Definicion de atributos
     nombre=""
