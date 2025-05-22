@@ -7,7 +7,7 @@
 import re
 import random
 from funciones import *
-from clasePersona import*
+from clasePersona import *
 
 #Definición de funciones
 def modificarNombreAux(lista):
@@ -20,6 +20,8 @@ def modificarNombreAux(lista):
     - Llama a la función principal y retorna un str según corresponda.
     """
     objeto=obtenerCedula(lista)
+    if objeto.getEstado()==False:
+        return "No se puede modificar, pues el miembro no forma parte del equipo de trabajo."
     while True:
         try:
             nombre=tuple(input("Ingrese el nuevo nombre con sus dos apellidos: ").split())
@@ -44,83 +46,21 @@ def eliminarAux(lista):
     Salidas:
     - Llama a la función principal y retorna un str según corresponda.
     """
-    cedulas=[]
-    while True:
-        try:
-            cedula=input("Ingrese la cédula del miembro que desea eliminar: ")
-            if not re.match(r"[1-9]\d{8}$",cedula):
-                raise TypeError
-            for i in lista:
-                cedulas.append(i.getCedula())
-            if cedula not in cedulas:
-                raise ValueError
-            objeto=lista[cedulas.index(cedula)]
-            if objeto.getEstado()==True:
-                if confirmar()==True:
-                    modificar(objeto,False,2)
-                    return print("El miembro fue eliminado.\n")
-            else:
-                return print("Esta en estado inactivo.\n")
-            break
-        except ValueError:
-            print("La cédula ingresada no se encuentra registrada.\n")
-        except TypeError:
-            print("Formato incorrecto.\nLa cedula debe de iniciar distinto a 0 y tener una longitud de 9.\n")
-    return "La acción fue cancelada y el miembro no se eliminó.\n"
-
-def insertarMiembro(lista,archivo):
-    """
-    Funcionamiento:
-    - Se le pide al ususario la cantidad de miembros de trabajo, para crearlos ficticiamente.
-    - Se crea la cantidad de personas indicada.
-    Entradas:
-    - lista(list): Es la lista que contiene todos los objetos.
-    - archivo(str): Es el nombre del archivo donde se guarda la lista.
-    Salidas:
-    - Retorna un mensaje indicando que se agregaron crearon exitosamente.
-    """
-    lstCed=[]
-    lstTrabajos=["Software Developer","Analyst","Engineer","Game designer","Web designer","Designer","Game programmer","Webmaster",
-                "Web developer","Network administrator","Software Engineer","Scientist","Video game developer","Data Engineer",
-                "Strategist","Web Application Developer","Java Developer"]
-    while True:
-        try:
-            cantMiembros=int(input("Ingrese la cantidad de personas en el equiopo de trabajo: "))
-            if cantMiembros<=0:
-                raise TypeError
-            break
-        except ValueError:
-            print("Debe ingresar un valor númerico\n")
-        except TypeError:
-            print("Debe ingresar un valor mayor a 0\n")
-    for i in range(cantMiembros):
-        miembro=Persona()
-        nombre=crearNombres()
-        cedula=random.randint(100000000,999999999)
-        if cedula in lstCed:
-            while cedula in lstCed:
-                cedula=random.randint(100000000,999999999)
-        lstCed.append(cedula)
-        categoria=random.randint(1,4)
-        perso=random.randint(1,4)
-        trab=random.randint(0,len(lstTrabajos)-1)
-        persoDefini=determinarPerso(categoria,perso)
-
-        miembro.setNombre(nombre)
-        miembro.setCedula(str(cedula))
-        miembro.setCategoria([categoria,persoDefini])
-        miembro.setProfesion(lstTrabajos[trab])
-        miembro.setEstado(random.choice([True,False]))
-        annadir(miembro,lista,archivo)
-    print("Los miembros se crearon exitosamente.")
-    return lista 
+    objeto=obtenerCedula(lista)
+    if objeto.getEstado()==True:
+        if confirmar()==True:
+            modificar(objeto,False,2)
+            return "El miembro fue eliminado."
+    else:
+        return "Esta persona no forma parte del equipo de trabajo."
+    return "La acción fue cancelada y el miembro no se eliminó."
 
 def categorias(lista):
     while True:
         try:
             opcion=0
             while opcion!=5:
-                opcion=int(input("1) Analistas.\n2) Diplomáticos.\n3) Centinelas.\n" \
+                opcion=int(input("\n1) Analistas.\n2) Diplomáticos.\n3) Centinelas.\n" \
                                 "4) Exploradores.\n5) Salir.\nOpcion: "))
                 if opcion==1:
                     for i in lista:
@@ -150,7 +90,7 @@ def subMenu(lista):
         try:
             opcion=0
             while opcion!=4:
-                opcion=int(input("1) Información general.\n2) Información por categoría.\n3) Información por cédula.\n" \
+                opcion=int(input("\n1) Información general.\n2) Información por categoría.\n3) Información por cédula.\n" \
                                 "4) Salir.\nOpcion: "))
                 if opcion==1:
                     reporteTotal(lista)
@@ -171,15 +111,14 @@ def menu(lista):
             verificarBase("baseDeDatos")
             opcion=0
             while opcion!=5:
-                opcion=int(input("1) Ingresar miembros.\n2) Modificar miembro.\n3) Eliminar miembro.\n" \
+                opcion=int(input("\n1) Ingresar miembros.\n2) Modificar miembro.\n3) Eliminar miembro.\n" \
                                 "4) Reportes.\n5) Salir.\nOpcion: "))
-                print("")
                 if opcion==1:
                     lista=insertarMiembro(lista,"baseDeDatos")
                 elif opcion==2:
-                    modificarNombreAux(lista)
+                    print(modificarNombreAux(lista))
                 elif opcion ==3:
-                    eliminarAux(lista)
+                    print(eliminarAux(lista))
                 elif opcion==4:
                     subMenu(lista)
                 elif opcion==5:
