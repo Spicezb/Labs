@@ -4,8 +4,6 @@
 # Versión: 3.13.3
 
 #Importación de librerías
-import re
-import random
 from funciones import *
 from clasePersona import *
 

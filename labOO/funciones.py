@@ -177,9 +177,13 @@ def reporteTotal(lista):
     Salidas:
     - Imprime los datos de todos los objetos.
     """
+    existeAlguno=False
     for i in lista:
         if i.getEstado()==True:
+            existeAlguno=True
             print(f"\n{i.getDatos()}")
+    if existeAlguno==False:
+        return "\nNo hay ningún miembro en el equipo."
     return ""
 
 def obtenerCedula(lista):
@@ -194,12 +198,14 @@ def obtenerCedula(lista):
     cedulas=[]
     while True:
         try:
-            cedula=input("Ingrese la cédula del miembro: ")
+            cedula=input("\nIngrese la cédula del miembro: ")
             if not re.match(r"[1-9]\d{8}$",cedula):
                 raise TypeError
             for i in lista:
                 cedulas.append(i.getCedula())
-            if cedula not in cedulas:
+            if cedulas==[]:
+                return "No hay ninguna cédula que modificar.\n"
+            elif cedula not in cedulas:
                 raise ValueError
             objeto=lista[cedulas.index(cedula)]
             return objeto
