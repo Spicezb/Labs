@@ -120,3 +120,58 @@ def modificar(objeto,datoNuevo,opcion):
     else:
         objeto.setEstado(datoNuevo)
     return ""
+
+def reporteTotal(lista):
+    """
+    Funcionamiento:
+    - Imprime los datos de cada objeto en la base de datos.
+    Entradas:
+    - lista(list): Es la lista que contiene los objetos.
+    Salidas:
+    - Imprime los datos de todos los objetos.
+    """
+    for i in lista:
+        if i.getEstado()==True:
+            print(f"{i.getDatos()}\n")
+    return ""
+
+def reporteCedula(lista):
+    """
+    Funcionamiento:
+    - Imprime los datos del miembro con dicha cédula.
+    Entradas:
+    - lista(list): Es la lista que contiene los objetos.
+    Salidas:
+    - Imprime los datos del miembro.
+    """
+    objeto=obtenerCedula(lista)
+    if objeto.getEstado()==False:
+        return print("La persona no forma parte del equipo.\n")
+    print(f"{objeto.getDatos()}\n")
+    return ""
+
+def obtenerCedula(lista):
+    """
+    Funcionamiento:
+    - Verifica la cédula y retorna el objeto.
+    Entradas:
+    - lista(list): Es la lista que contiene los objetos.
+    Salidas:
+    - Retorna el objeto.
+    """
+    cedulas=[]
+    while True:
+        try:
+            cedula=input("Ingrese la cédula del miembro: ")
+            if not re.match(r"[1-9]\d{8}$",cedula):
+                raise TypeError
+            for i in lista:
+                cedulas.append(i.getCedula())
+            if cedula not in cedulas:
+                raise ValueError
+            objeto=lista[cedulas.index(cedula)]
+            return objeto
+        except ValueError:
+            print("La cédula ingresada no se encuentra registrada.")
+        except TypeError:
+            print("Formato incorrecto.\nLa cedula debe de iniciar distinto a 0 y tener una longitud de 9.")
