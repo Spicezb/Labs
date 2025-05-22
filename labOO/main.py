@@ -32,9 +32,9 @@ def modificarNombreAux(lista):
             objeto=lista[cedulas.index(cedula)]
             break
         except ValueError:
-            print("La cédula ingresada no se encuentra registrada.")
+            print("La cédula ingresada no se encuentra registrada.\n")
         except TypeError:
-            print("Formato incorrecto.\nLa cedula debe de iniciar distinto a 0 y tener una longitud de 9.")
+            print("Formato incorrecto.\nLa cedula debe de iniciar distinto a 0 y tener una longitud de 9.\n")
     while True:
         try:
             nombre=tuple(input("Ingrese el nuevo nombre con sus dos apellidos: ").split())
@@ -42,11 +42,11 @@ def modificarNombreAux(lista):
                 raise ValueError
             break
         except:
-            print("Debe ingresar un nombre con dos apellidos.")
+            print("Debe ingresar un nombre con dos apellidos.\n")
     if confirmar()==True:
         modificar(objeto,nombre,1)
-        return "El nombre fue modificado"
-    return "La acción fue cancelada y el nombre no se modificó."
+        return print("El nombre fue modificado\n")
+    return print("La acción fue cancelada y el nombre no se modificó.\n")
 
 def eliminarAux(lista):
     """
@@ -71,13 +71,15 @@ def eliminarAux(lista):
             if objeto.getEstado()==True:
                 if confirmar()==True:
                     modificar(objeto,False,2)
-                    return "El miembro fue eliminado."
+                    return print("El miembro fue eliminado.\n")
+            else:
+                return print("Esta en estado inactivo.\n")
             break
         except ValueError:
-            print("La cédula ingresada no se encuentra registrada.")
+            print("La cédula ingresada no se encuentra registrada.\n")
         except TypeError:
-            print("Formato incorrecto.\nLa cedula debe de iniciar distinto a 0 y tener una longitud de 9.")
-    return "La acción fue cancelada y el miembro no se eliminó."
+            print("Formato incorrecto.\nLa cedula debe de iniciar distinto a 0 y tener una longitud de 9.\n")
+    return "La acción fue cancelada y el miembro no se eliminó.\n"
 
 def insertarMiembro(lista,archivo):
     """
@@ -126,13 +128,44 @@ def insertarMiembro(lista,archivo):
     print("Los miembros se crearon exitosamente.")
     return lista 
 
-def subMenu():
+def categorias(lista):
+    while True:
+        try:
+            opcion=0
+            while opcion!=5:
+                opcion=int(input("1) Analistas.\n2) Diplomáticos.\n3) Centinelas.\n" \
+                                "4) Exploradores.\n5) Salir.\nOpcion: "))
+                if opcion==1:
+                    for i in lista:
+                        if i.getCategoria()[0] == 1 and i.getEstado()==True:
+                            print(i.getDatos())
+                elif opcion==2:
+                    for i in lista:
+                        if i.getCategoria()[0] == 2 and i.getEstado()==True:
+                            print(i.getDatos())
+                elif opcion==3:
+                    for i in lista:
+                        if i.getCategoria()[0] == 3 and i.getEstado()==True:
+                            print(i.getDatos())
+                elif opcion==4:
+                    for i in lista:
+                        if i.getCategoria()[0] == 4 and i.getEstado()==True:
+                            print(i.getDatos())
+                elif opcion==5:
+                    break
+            break
+        except ValueError:
+            print("Debe ingresar una opción valida.")
+
+def subMenu(lista):
     while True:
         try:
             opcion=0
             while opcion!=5:
                 opcion=int(input("1) Información general.\n2) Información por categoría.\n3) Información por cédula.\n" \
                                 "4) Salir.\nOpcion: "))
+                if opcion==2:
+                    categorias(lista)
         except ValueError:
             print("Debe ingresar una opción valida.")
 
@@ -144,6 +177,7 @@ def menu(lista):
             while opcion!=5:
                 opcion=int(input("1) Ingresar miembros.\n2) Modificar miembro.\n3) Eliminar miembro.\n" \
                                 "4) Reportes.\n5) Salir.\nOpcion: "))
+                print("")
                 if opcion==1:
                     lista=insertarMiembro(lista,"baseDeDatos")
                 elif opcion==2:
@@ -151,7 +185,10 @@ def menu(lista):
                 elif opcion ==3:
                     eliminarAux(lista)
                 elif opcion==4:
-                    subMenu()
+                    subMenu(lista)
+                elif opcion==5:
+                    grabar(lista,"baseDeDatos")
+                    return print("Saliendo. . .")
                 else:
                     raise ValueError
         except ValueError:
