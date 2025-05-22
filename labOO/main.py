@@ -56,8 +56,17 @@ def eliminarAux(lista):
     return "La acción fue cancelada y el miembro no se eliminó."
 
 def categorias(lista):
+    """
+    Funcionamiento:
+    - Submenú de las categorías de la personalidad.
+    Entradas:
+    - lista(list): Es la lista que contiene todos los objetos.
+    Salidas:
+    - Retorna los miembros que pertenecen a la categoría correspondiente.
+    """
     while True:
         try:
+            conta=0
             opcion=0
             while opcion!=5:
                 opcion=int(input("\n1) Analistas.\n2) Diplomáticos.\n3) Centinelas.\n" \
@@ -66,18 +75,34 @@ def categorias(lista):
                     for i in lista:
                         if i.getCategoria()[0] == 1 and i.getEstado()==True:
                             print(i.getDatos())
+                            conta+=1
+                    if conta==0:
+                        print("No hay ningún miembro en esta categoría.")
+                    conta=0
                 elif opcion==2:
                     for i in lista:
                         if i.getCategoria()[0] == 2 and i.getEstado()==True:
                             print(i.getDatos())
+                            conta+=1
+                    if conta==0:
+                        print("No hay ningún miembro en esta categoría.")
+                    conta=0
                 elif opcion==3:
                     for i in lista:
                         if i.getCategoria()[0] == 3 and i.getEstado()==True:
                             print(i.getDatos())
+                            conta+=1
+                    if conta==0:
+                        print("No hay ningún miembro en esta categoría.")
+                    conta=0
                 elif opcion==4:
                     for i in lista:
                         if i.getCategoria()[0] == 4 and i.getEstado()==True:
                             print(i.getDatos())
+                            conta+=1
+                    if conta==0:
+                        print("No hay ningún miembro en esta categoría.")
+                    conta=0
                 elif opcion==5:
                     return ""
                 else:
@@ -86,6 +111,14 @@ def categorias(lista):
             print("Debe ingresar una opción valida.")
 
 def subMenu(lista):
+    """
+    Funcionamiento:
+    - Submenú para mostrar la información en distintos formatos.
+    Entradas:
+    - lista(list): Es la lista que contiene todos los objetos.
+    Salidas:
+    - Retorna las funciones respectivas.
+    """
     while True:
         try:
             opcion=0
@@ -105,7 +138,15 @@ def subMenu(lista):
         except ValueError:
             print("Debe ingresar una opción valida.")
 
-def menu(lista):
+def menu(lista):    
+    """
+    Funcionamiento:
+    - Menú principal del programa.
+    Entradas:
+    - lista(list): Es la lista que contiene todos los objetos.
+    Salidas:
+    - Retorna la función correspondiente para cada acción.
+    """
     while True:
         try:
             verificarBase("baseDeDatos")
