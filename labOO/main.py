@@ -124,7 +124,7 @@ def insertarMiembro(lista,archivo):
         miembro.setEstado(random.choice([True,False]))
         annadir(miembro,lista,archivo)
     print("Los miembros se crearon exitosamente.")
-    return print("Los miembros se crearon exitosamente.") #Ayuda retornando la lista actualizada.
+    return lista 
 
 def subMenu():
     while True:
@@ -136,7 +136,7 @@ def subMenu():
         except ValueError:
             print("Debe ingresar una opción valida.")
 
-def menu():
+def menu(lista):
     while True:
         try:
             verificarBase("baseDeDatos")
@@ -145,14 +145,19 @@ def menu():
                 opcion=int(input("1) Ingresar miembros.\n2) Modificar miembro.\n3) Eliminar miembro.\n" \
                                 "4) Reportes.\n5) Salir.\nOpcion: "))
                 if opcion==1:
-                    insertarMiembro(lista,"baseDeDatos")
+                    lista=insertarMiembro(lista,"baseDeDatos")
                 elif opcion==2:
                     modificarNombreAux(lista)
-                elif opcion ==4:
+                elif opcion ==3:
                     eliminarAux(lista)
-                elif opcion==5:
+                elif opcion==4:
                     subMenu()
                 else:
                     raise ValueError
         except ValueError:
             print("Debe ingresar una opción valida.")
+
+#Código principal
+verificarBase("baseDeDatos")
+lista=leer("baseDeDatos")
+menu(lista)
