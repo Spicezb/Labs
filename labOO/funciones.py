@@ -227,6 +227,8 @@ def reporteCedula(lista):
     - Imprime los datos del miembro.
     """
     objeto=obtenerCedula(lista)
+    if objeto==False:
+        return print("No hay ningún miembro en el equipo.")
     if objeto.getEstado()==False:
         return print("La persona no forma parte del equipo.")
     print(f"\n{objeto.getDatos()}")
