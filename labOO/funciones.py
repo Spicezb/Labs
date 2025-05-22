@@ -198,7 +198,7 @@ def obtenerCedula(lista):
     cedulas=[]
     while True:
         try:
-            cedula=input("Ingrese la cédula del miembro: ")
+            cedula=input("\nIngrese la cédula del miembro: ")
             if not re.match(r"[1-9]\d{8}$",cedula):
                 raise TypeError
             for i in lista:
