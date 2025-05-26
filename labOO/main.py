@@ -34,6 +34,7 @@ def modificarNombreAux(lista):
             print(e)
     if confirmar()==True:
         modificar(objeto,nombre,1)
+        #grabar()
         return "El nombre fue modificado"
     return "La acción fue cancelada y el nombre no se modificó."
 
@@ -151,7 +152,7 @@ def menu(lista):
     """
     while True:
         try:
-            verificarBase("baseDeDatos")
+            # verificarBase("baseDeDatos")
             opcion=0
             while opcion!=5:
                 opcion=int(input("\n1) Ingresar miembros.\n2) Modificar miembro.\n3) Eliminar miembro.\n" \
