@@ -16,7 +16,7 @@ def clasificarOperadores(lista):
     mayores=[]
     dic={}
     for i in lista:
-        if int(i[0:4]) not in dic:
+        if (i[0:4]) not in dic:
             generaciones.append(int(i[0:4]))
             dic[int(i[0:4])]=[i]
         else:
@@ -46,6 +46,8 @@ def clasificarOperadoresAux(lista):
         elif not re.match(r"[0-9]{10}$",i):
             print("Todos los carnets deben ser textos con 10 valores que representen números.")
     clasificarOperadores(lista)
+    return
+
 
 #Reto #3: Cambiemos la vista. - - - - - - - - - - - - - - - - - - - - - - - - -
 def obtenerCodigo(lista): #Se utiliza para ordenar la matriz.
