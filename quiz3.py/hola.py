@@ -4,12 +4,15 @@ def clasificarOperadores(lista):
     contaGen=0
     conta=0
     listaconta=[]
+    generaciones=[]
+    mayores=[]
     dic={}
     for i in lista:
-        if i[0:4] not in dic:
-            dic[i[0:4]]=[i]
+        if int(i[0:4]) not in dic:
+            generaciones.append(int(i[0:4]))
+            dic[int(i[0:4])]=[i]
         else:
-            dic[i[0:4]].append(i)
+            dic[int(i[0:4])].append(i)
     for j in dic:
         contaGen+=1
         for x in dic[j]:
@@ -17,13 +20,16 @@ def clasificarOperadores(lista):
         listaconta.append(conta)
         conta=0
     cantidadM=max(listaconta)
-    print(cantidadM)
-    for x in listaconta:
-        if x == cantidadM:
-            print(x.index())
+    for i,j in enumerate(listaconta):
+        if j == cantidadM:
+            mayores.append(generaciones[i])
+    print(dic)
     print(f"Tenemos {contaGen} generaciones.")
-            
-
+    if len(mayores)==1:
+        print(f"Pero hay más operadores del {mayores[0]}")
+    else:
+        print(f"Pero hay más operadores del {mayores[0]} y del {mayores[1]}")
+    return ""
 
 def clasificarOperadoresAux(lista):
     for i in lista:
@@ -31,6 +37,6 @@ def clasificarOperadoresAux(lista):
             print("Debe ingresar únicamente valores de tipo strings")
         elif not re.match(r"[0-9]{10}$",i):
             print("Todos los carnets deben ser textos con 10 valores que representen números.")
-    clasificarOperadores(lista)
+    return clasificarOperadores(lista)
 
-clasificarOperadores( ["2022011234","2023015432","2021017654","2024017654","2024017765","2020016543"])
+clasificarOperadores( ["2022011234","2022511234","2023015432","2021017654","2024017654","2024017765","2020016543"])
