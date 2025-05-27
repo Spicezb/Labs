@@ -45,7 +45,7 @@ def clasificarOperadoresAux(lista):
             return print("Debe ingresar únicamente valores de tipo strings.")
         elif not re.match(r"[0-9]{10}$",i):
             return print("Todos los carnets deben ser textos con 10 valores que representen números.")
-    clasificarOperadores(lista)
+    return clasificarOperadores(lista)
 
 #Reto #3: Cambiemos la vista. - - - - - - - - - - - - - - - - - - - - - - - - -
 def obtenerCodigo(lista): #Se utiliza para ordenar la matriz.
