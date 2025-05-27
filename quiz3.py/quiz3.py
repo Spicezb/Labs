@@ -42,9 +42,9 @@ def clasificarOperadores(lista):
 def clasificarOperadoresAux(lista):
     for i in lista:
         if type(i)!=str:
-            print("Debe ingresar únicamente valores de tipo strings")
+            return print("Debe ingresar únicamente valores de tipo strings.")
         elif not re.match(r"[0-9]{10}$",i):
-            print("Todos los carnets deben ser textos con 10 valores que representen números.")
+            return print("Todos los carnets deben ser textos con 10 valores que representen números.")
     clasificarOperadores(lista)
 
 #Reto #3: Cambiemos la vista. - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -67,27 +67,27 @@ def convertirAMatriz(dicc):
 
 #Código principal
 #Reto #1: Los operadores del Lab - - - - - - - - - - - - - - - - - - - - - - - -
-print("***** Reto #1: Los operadores del lab. *****\n")
+print("***** Reto #1: Los operadores del lab. *****")
 x= ["2022011234","202301543","2022017654"]
-print(f"Para la entrada: {x}\n\nResultado:")
+print(f"\nPara la entrada: {x}\n\nResultado:")
 clasificarOperadoresAux(x)
 x= ["2022011234",2023015432,"2022017654"]
-print(f"Para la entrada: {x}\n\nResultado:")
+print(f"\nPara la entrada: {x}\n\nResultado:")
 clasificarOperadoresAux(x)
 x= ["2022011234","2023015432","2022017654"]
-print(f"Para la entrada: {x}\n\nResultado:")
+print(f"\nPara la entrada: {x}\n\nResultado:")
 clasificarOperadoresAux(x)
 x= ["2022011234","2023015432","2022017654","2024017654",
 "2024017765","2020016543"]
-print(f"Para la entrada: {x}\n\nResultado:")
+print(f"\nPara la entrada: {x}\n\nResultado:")
 clasificarOperadoresAux(x)
 x= ["2022011234","2023015432","2021017654","2024017654",
 "2024017765","2020016543"]
-print(f"Para la entrada: {x}\n\nResultado:")
+print(f"\nPara la entrada: {x}\n\nResultado:")
 clasificarOperadoresAux(x)
 
 #Reto #3: Cambiemos la vista. - - - - - - - - - - - - - - - - - - - - - - - - -
-print("\n***** Reto #3: Cambiemos la vista. *****\n")
+print("\n***** Reto #3: Cambiemos la vista. *****")
 x={
 "Lluvia": [
 (10,"Lluvia de meteoros Táuridas del Sur"), (21,"Lluvia de meteoros Oriónidas")
@@ -100,5 +100,5 @@ x={
 (14,"Ocultación lunar"), (17,"Luna Llena"), (31,"El cúmulo doble de Perseo")
 ]
 }
-print(f"Para la entrada: {x}\n\nResultado:")
+print(f"\nPara la entrada: {x}\n\nResultado:")
 print(convertirAMatriz(x))
