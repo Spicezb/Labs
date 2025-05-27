@@ -1,6 +1,6 @@
 # Elaborado por: Xavier Céspedes Alvarado y Luis Guillermo Alfaro Chacón
 # Fecha de creación: 27/05/2025 8:00
-# Última modificación: 27/05/2025
+# Última modificación: 27/05/2025 10:51
 # Versión: 3.13.3
 
 #Importación de librerías
