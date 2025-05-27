@@ -16,7 +16,7 @@ def clasificarOperadores(lista):
     mayores=[]
     dic={}
     for i in lista:
-        if (i[0:4]) not in dic:
+        if int(i[0:4]) not in dic:
             generaciones.append(int(i[0:4]))
             dic[int(i[0:4])]=[i]
         else:

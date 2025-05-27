@@ -39,4 +39,4 @@ def clasificarOperadoresAux(lista):
             print("Todos los carnets deben ser textos con 10 valores que representen números.")
     return clasificarOperadores(lista)
 
-clasificarOperadores( ["2022011234","2022511234","2023015432","2021017654","2024017654","2024017765","2020016543"])
+clasificarOperadores(["2022011234","2023015432","2022017654"]) 
