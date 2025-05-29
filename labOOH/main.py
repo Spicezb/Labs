@@ -9,6 +9,15 @@ from archivos import *
 
 #Definición de funciones
 def menu(lista,archivo):
+    """
+    Funcionamiento:
+    - Muestra el menú principal y permite elegir las opciones.
+    Entradas:
+    - lista(list): Es la lista donde se guardan las nuevas herramientas.
+    - archivo(str): Es el nombre del archivo donde se tienen que guardar los datos.
+    Salidas:
+    - Llama a la función necesaria según cada opción.
+    """
     while True:
         try:
             opcion=int(input("\n1) Insertar arma\n" \
@@ -27,7 +36,7 @@ def menu(lista,archivo):
                 lista=insertarArmadura(lista)
                 grabar(lista,archivo)
             elif opcion==3:
-                lista=desgastarArma(lista)
+                desgastarArma(lista)
             elif opcion==4:
                 lista=eliminarEquipo(lista)
             elif opcion==5:

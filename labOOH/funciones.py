@@ -3,6 +3,14 @@ import random
 from clases import *
 
 def verificarBase(archivo):
+    """
+    Funcionamiento:
+    - Verifica la existencia de la base de datos.
+    Entradas:
+    - archivo(str): Es el nombre del archivo que contiene la base de datos.
+    Salidas:
+    - Retorna True o False dependiendo del resultado.
+    """
     try:
         base=open(archivo,"rb")
         base.close
@@ -12,6 +20,14 @@ def verificarBase(archivo):
         return False
 
 def confirmar():
+    """
+    Funcionamiento:
+    - Pide una confirmación al usuario.
+    Entradas:
+    - N/A
+    Salidas:
+    - Retorna 1 o 2 dependiendo de la confirmación.
+    """
     while True:
         try:
             conf=input("\nDesea confirmar?\n" \
@@ -26,14 +42,24 @@ def confirmar():
     return conf
 
 def infoGen(lista):  
+    """
+    Funcionamiento:
+    - Pide las características de las herramientas nuevas.
+    Entradas:
+    - lista(list): Es la lista donde se guardan las nuevas herramientas
+    Salidas:
+    - Retorna las características de la herramienta.
+    """
     while True:
         try:
-            id=float(input("Ingrese el id: "))
+            id=float(input("\nIngrese el id: "))
             if id%int(id)!=0:
                 raise ValueError
-            break
+            elif id<0:
+                raise ValueError
         except ValueError:
-            print("\nEl id debe ser un número entero.")
+            print("\nEl id debe ser un número entero positivo.")
+            continue
         try:
             id=int(id)
             for i in lista:
@@ -43,9 +69,10 @@ def infoGen(lista):
             break
         except ValueError:
             print("\nEl id ingresado ya está registrado.")
+            continue
     while True:        
         try:
-            metal=input("Seleccione el metal de la herramienta:\n1. Hierro\n2. Diamante\n3. Oro\nOpción: ")
+            metal=input("\nSeleccione el metal de la herramienta:\n1. Hierro\n2. Diamante\n3. Oro\nOpción: ")
             if metal not in ("1","2","3"):
                 raise ValueError
             if metal =="1":
@@ -56,10 +83,10 @@ def infoGen(lista):
                 metal="Oro"
             break
         except ValueError:
-            print("Debe seleccionar una de las opciones mostradas anteriormente.\n")
+            print("\nDebe seleccionar una de las opciones mostradas anteriormente.")
     while True:        
         try:
-            color=input("Seleccione el color\n1. Azul\n2. Amarillo\n3. Gris\nOpción: ")
+            color=input("\nSeleccione el color\n1. Azul\n2. Amarillo\n3. Gris\nOpción: ")
             if color not in ("1","2","3"):
                 raise ValueError
             if color =="1":
@@ -70,11 +97,19 @@ def infoGen(lista):
                 color="Gris"
             break
         except ValueError:
-            print("Debe seleccionar una de las opciones mostradas anteriormente.\n")
+            print("\nDebe seleccionar una de las opciones mostradas anteriormente.")
     durabilidad=random.randint(1,100)
     return id,durabilidad,metal,color
 
 def insertarArma(lista):
+    """
+    Funcionamiento:
+    - Permite insertar un nuevo arma a la base de datos.
+    Entradas:
+    - lista(list): Es la lista donde se guardan las nuevas herramientas
+    Salidas:
+    - Retorna la lista actualizada.
+    """
     id,durabilidad,metal,color=infoGen(lista)
     while True:
                     try:
@@ -101,10 +136,18 @@ def insertarArma(lista):
     arma.setDanno(danno)
     arma.setVelocidadAtaque(veloAtaq)
     lista[0].append(arma)
-    print("El arma ha sido agregada.")
+    print("\nEl arma ha sido agregada.")
     return lista
 
 def insertarArmadura(lista):
+    """
+    Funcionamiento:
+    - Permite insertar una nueva armadura a la base de datos.
+    Entradas:
+    - lista(list): Es la lista donde se guardan las nuevas herramientas
+    Salidas:
+    - Retorna la lista actualizada.
+    """
     id,durabilidad,metal,color=infoGen(lista)
     while True:
         try:
@@ -122,10 +165,18 @@ def insertarArmadura(lista):
     armadura.setEstado(True)
     armadura.setDefensa(defen)
     lista[1].append(armadura)
-    print("La armadura ha sido agregada.")
+    print("\nLa armadura ha sido agregada.")
     return lista
 
-def desgastarArma(lista):  #Luego la separo en aux y normal
+def desgastarArma(lista):
+    """
+    Funcionamiento:
+    - Desgasta la durabilidad de un arma de 25 en 25.
+    Entradas:
+    - lista(list): Es la lista donde se guardan las nuevas herramientas.
+    Salidas:
+    - Desgasta las armas y retorna strs vacíos.
+    """
     hayActiva=False
     for i in lista[0]:
         if i.getEstado()==True:
@@ -135,14 +186,14 @@ def desgastarArma(lista):  #Luego la separo en aux y normal
         return ""
     while True:
         try:
-            id=float(input("Ingrese el id del arma que desea desgastar o digite -1 para regresar: "))
+            id=float(input("\nIngrese el id del arma que desea desgastar o digite -1 para regresar: "))
             if int(id)==-1:
                 return ""
             if id%int(id)!=0:
                 raise ValueError
-            break
         except ValueError:
             print("\nEl id debe ser un número entero.")
+            continue
         try:
             id=int(id)
             yaExiste=False
@@ -154,7 +205,8 @@ def desgastarArma(lista):  #Luego la separo en aux y normal
                 raise ValueError
             break
         except ValueError:
-            print("\nEl id ingresado no se encuentra registrado.")
+            print("\nEl id ingresado no se encuentra registrado como arma.")
+            continue
     if arma.getEstado()==False:
         print("El arma correspondiente al id ingresado fue eliminada.")
         return ""
@@ -172,14 +224,20 @@ def desgastarArma(lista):  #Luego la separo en aux y normal
             "Opción: ")
             if continuar not in ("1","2"):
                 raise ValueError
-            break
         except ValueError:
             print("\nDebe ingresar una de las opciones mostradas.")
         if continuar=="2":
-            break
-    return ""
+            return ""
 
 def eliminarEquipo(lista):
+    """
+    Funcionamiento:
+    - Simula la eliminación de herramientas cambiando su estado.
+    Entradas:
+    - lista(list): Es la lista donde se guardan las nuevas herramientas
+    Salidas:
+    - Modifica el estado y retorna strs vacíos.
+    """
     hayActivos=False
     for i in lista:
         for j in i:
@@ -190,14 +248,14 @@ def eliminarEquipo(lista):
         return ""
     while True:
         try:
-            id=float(input("Ingrese el id del arma que desea desgastar o digite -1 para regresar: "))
+            id=float(input("\nIngrese el id del arma que desea desgastar o digite -1 para regresar: "))
             if int(id)==-1:
                 return ""
             if id%int(id)!=0:
                 raise ValueError
-            break
         except ValueError:
             print("\nEl id debe ser un número entero.")
+            continue
         try:
             id=int(id)
             yaExiste=False
@@ -211,6 +269,7 @@ def eliminarEquipo(lista):
             break
         except ValueError:
             print("\nEl id ingresado no se encuentra registrado.")
+            continue
     if arma.getEstado()==False:
         print("\nEl arma ya fue eliminada.")
     elif confirmar()=="1":
