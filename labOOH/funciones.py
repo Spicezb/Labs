@@ -170,48 +170,17 @@ def insertarArmadura(lista):
     print("\nLa armadura ha sido agregada.")
     return lista
 
-def desgastarArma(lista):
+def desgastarArma(lista,objeto):
     """
     Funcionamiento:
     - Desgasta la durabilidad de un arma de 25 en 25.
     Entradas:
     - lista(list): Es la lista donde se guardan las nuevas herramientas.
+    - objeto(int): Es el índice donde se encuentra el objeto.
     Salidas:
-    - Desgasta las armas y retorna strs vacíos.
+    - Desgasta las armas y retorna la lista actualizada.
     """
-    hayActiva=False
-    for i in lista[0]:
-        if i.getEstado()==True:
-            hayActiva=True
-    if hayActiva==False:
-        print("\nNo hay ningún arma para desgastar.")
-        return ""
-    while True:
-        try:
-            id=float(input("\nIngrese el id del arma que desea desgastar o digite -1 para regresar: "))
-            if int(id)==-1:
-                return ""
-            if id%int(id)!=0:
-                raise ValueError
-        except ValueError:
-            print("\nEl id debe ser un número entero.")
-            continue
-        try:
-            id=int(id)
-            yaExiste=False
-            for i in lista[0]:
-                if id==i.getIdes():
-                    yaExiste=True
-                    arma=i
-            if yaExiste==False:
-                raise ValueError
-            break
-        except ValueError:
-            print("\nEl id ingresado no se encuentra registrado como arma.")
-            continue
-    if arma.getEstado()==False:
-        print("El arma correspondiente al id ingresado fue eliminada.")
-        return ""
+    arma=lista[0][objeto]
     while True:
         arma.setDurabilidad(arma.getDurabilidad()-25)
         if arma.getDurabilidad()<=0:
@@ -229,7 +198,7 @@ def desgastarArma(lista):
         except ValueError:
             print("\nDebe ingresar una de las opciones mostradas.")
         if continuar=="2":
-            return ""
+            return lista
 
 def eliminarEquipo(lista):
     """
@@ -238,7 +207,7 @@ def eliminarEquipo(lista):
     Entradas:
     - lista(list): Es la lista donde se guardan las nuevas herramientas
     Salidas:
-    - Modifica el estado y retorna strs vacíos.
+    - Modifica el estado y retorna la lista actualizada.
     """
     hayActivos=False
     for i in lista:
@@ -247,12 +216,12 @@ def eliminarEquipo(lista):
                 hayActivos=True
     if hayActivos==False:
         print("\nNo hay herramientas que eliminar.")
-        return ""
+        return lista
     while True:
         try:
             id=float(input("\nIngrese el id del arma que desea desgastar o digite -1 para regresar: "))
             if int(id)==-1:
-                return ""
+                return lista
             if id%int(id)!=0:
                 raise ValueError
         except ValueError:
@@ -265,21 +234,21 @@ def eliminarEquipo(lista):
                 for j in i:
                     if id==j.getIdes():
                         yaExiste=True
-                        arma=j
+                        herramienta=j
             if yaExiste==False:
                 raise ValueError
             break
         except ValueError:
             print("\nEl id ingresado no se encuentra registrado.")
             continue
-    if arma.getEstado()==False:
+    if herramienta.getEstado()==False:
         print("\nEl arma ya fue eliminada.")
     elif confirmar()=="1":
-        arma.setEstado(False)
+        herramienta.setEstado(False)
         print("\nEl arma fue eliminada.")
     else:
         print("\nLa acción fue cancelada.")
-    return ""
+    return lista
 
 def mostrarElimiados(lista):
     """
