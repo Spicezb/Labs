@@ -2,9 +2,28 @@
 # Fecha de creación: 29/05/2025 20:00
 # Ultima actualizacion:29/05/2025 22:00
 # Versión de python: 3.13.3
-#Importacion de librerias
+
+#Importacion de librerías
 from funciones import *
 
+#Definición de funciones
+#Reto 1 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+def multiNumerosImpAux(num):
+    """
+    Funcionamiento: Es la funcion Auxiliar, donde se validan que los valores sean procesables.
+    Entradas:
+    num(int): Es el numero a evaluar.
+    Salidas:
+    Se retorna el resultado de la funcion multiNumerosImp
+    """
+    if type(num)!=int:
+        return print("El valor ingresado debe corresponder a un número únicamente.")
+    elif num<=0:
+        return print("El valor ingresado debe corresponder a un número de 0.")
+    else:
+        return multiNumerosImp(num)
+    
+#Reto 2 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 def determinarDigitosAux(num,busc):
     """
     Funcionamiento: Es la funcion Auxiliar, donde se validan que los valores sean procesables.
@@ -23,23 +42,43 @@ def determinarDigitosAux(num,busc):
     else:
         return determinarDigitos(num,busc)
 
-def multiNumerosImpAux(num):
+#Reto 3 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+def formarNumeroAux(num):
     """
-    Funcionamiento: Es la funcion Auxiliar, donde se validan que los valores sean procesables.
+    Funcionamiento:
+    - Verifica que el número sea entero, y si es negativo llama a la función como positivo.
     Entradas:
-    num(int): Es el numero a evaluar.
+    - num(int): Es el número que se va a evaluar.
     Salidas:
-    Se retorna el resultado de la funcion multiNumerosImp
+    - Llama a la función principal o retorna un str en caso de que el número no sea entero.
     """
     if type(num)!=int:
-        return print("El valor ingresado debe corresponder a un número únicamente.")
-    elif num<=0:
-        return print("El valor ingresado debe corresponder a un número de 0.")
-    else:
-        return multiNumerosImp(num)
+        return "El número debe ser entero."
+    if num<0:
+        return formarNumero(-num)
+    return formarNumero(num)
 
-print("Reto #1")
-print("Para la entrada: 123a")
+#Reto 4 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+def sumarDigitosMultiplosAux(num,dig):
+    """
+    Funcionamiento:
+    - Verifica que el número y el dígito sean enteros y mayores que 0.
+    Entradas:
+    - num(int): Es el número que se va a evaluar.
+    - dig(int): Es el dígito con el que se evalúan los dígitos del número.
+    Salidas:
+    - Llama a la función principal o retorna un str en caso de que el número o el dígito no sean enteros mayores que 0.
+    """
+    if type(num)!=int or type(dig)!=int:
+        return "El número y el dígito deben ser enteros."
+    if num<=0 or dig<=0:
+        return "El número y el dígito deben ser mayores que 0."
+    return sumarDigitosMultiplos(num,dig)
+
+#Código principal
+#Reto 1 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+print("\n*****Reto #1: Multiplicación de dígitos impares.*****")
+print("\nPara la entrada: 123a")
 multiNumerosImpAux("123a")
 print("\nPara la entrada: 12345")
 multiNumerosImpAux(12345)
@@ -48,10 +87,47 @@ multiNumerosImpAux(246)
 print("\nPara la entrada: 1246")
 multiNumerosImpAux(1246)
 
-print("\nReto #2")
-print("Para la entrada: 1234567123 a buscar 2")
+#Reto 2 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+print("\n*****Reto #2: Cantidad de apariciones de un dígito en un número.*****")
+print("\nPara la entrada: 1234567123 a buscar 2")
 determinarDigitosAux(1234567123,2)
 print("\nPara la entrada: 3451233453 a buscar 3")
 determinarDigitosAux(3451233453,3)
 print("\nPara la entrada: 234565 a buscar 9")
 determinarDigitosAux(234565,9)
+
+#Reto 3 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+print("\n*****Reto #3: Formar número con los dígitos pares de otro.*****")
+x="Hola"
+print(f"\nPara la entrada: {x}")
+print(formarNumeroAux(x))
+x=255.3
+print(f"\nPara la entrada: {x}")
+print(formarNumeroAux(x))
+x=-2556
+print(f"\nPara la entrada: {x}")
+print(formarNumeroAux(x))
+x=2552180
+print(f"\nPara la entrada: {x}")
+print(formarNumeroAux(x))
+x=125
+print(f"\nPara la entrada: {x}")
+print(formarNumeroAux(x))
+x=135
+print(f"\nPara la entrada: {x}")
+print(formarNumeroAux(x))
+
+#Reto 4 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+print("\n*****Reto #2: Sumar dígitos múltiplos.*****")
+x,y=6,3
+print(f"\nPara la entrada: {x,y}")
+print(sumarDigitosMultiplosAux(x,y))
+x,y=1002,7
+print(f"\nPara la entrada: {x,y}")
+print(sumarDigitosMultiplosAux(x,y))
+x,y=666,3
+print(f"\nPara la entrada: {x,y}")
+print(sumarDigitosMultiplosAux(x,y))
+x,y=1234,2
+print(f"\nPara la entrada: {x,y}")
+print(sumarDigitosMultiplosAux(x,y))
