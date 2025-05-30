@@ -202,7 +202,8 @@ def desgastarArma(lista,objeto):
         except ValueError:
             print("\nDebe ingresar una de las opciones mostradas.")
         if continuar=="2":
-            return lista
+            break
+    return lista
 
 def eliminarEquipo(lista):
     """
