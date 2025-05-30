@@ -190,7 +190,7 @@ def desgastarArma(lista,objeto):
         if arma.getDurabilidad()<=0:
             arma.setEstado(False)
             print("\nEl arma fue desgastada en su totalidad y se eliminó.")
-            break
+            return lista
         print("\nEl arma ha sido desgastada.")
         try:
             continuar=input("\nDesea volver a desgastar el arma?\n" \
@@ -202,8 +202,7 @@ def desgastarArma(lista,objeto):
         except ValueError:
             print("\nDebe ingresar una de las opciones mostradas.")
         if continuar=="2":
-            break
-    return lista
+            return lista
 
 def eliminarEquipo(lista):
     """
