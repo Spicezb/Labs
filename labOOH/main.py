@@ -40,11 +40,11 @@ def menu(lista,archivo):
             elif opcion==4:
                 lista=eliminarEquipo(lista)
             elif opcion==5:
-                lista=insertarArmadura(lista)
+                mostrarHerramientas(lista)
             elif opcion==6:
-                lista=insertarArmadura(lista)
+                mostrarArmasMetal(lista)
             elif opcion==7:
-                lista=insertarArmadura(lista)
+                mostrarElimiados(lista)
             elif opcion==8:
                 return print("Saliendo")
             else:
@@ -59,32 +59,3 @@ if verificarBase(arch)==True:
     menu(lista,arch)
 else:
     menu([[],[]],arch)
-
-
-
-#Le guardé esto pa para las de mostrar
-
-#Arma
-# idBusc=int(input("\nIngrese el ID del arma: "))
-# for i in range(0,len(lista[0]-1)):
-#     if lista[0][i].getIdes()== idBusc:
-#         print(f"ID: {lista[0][i].getInfo()[0][0]}\n" \
-#             f"Durabilidad: {lista[0][i].getInfo()[0][1]}\n" \
-#             f"Metal: {lista[0][i].getInfo()[0][2]}\n" \
-#             f"Color: {lista[1][i].getInfo()[0][3]}\n" \
-#             f"Daño: {lista[0][i].getInfo()[1]}\n"\
-#             f"Velocidad de ataque: {lista[0][i].getInfo()[2]}")
-
-#Armadura
-# existe=False
-# idBusc=int(input("\nIngrese el ID del arma: "))
-# for i in range(0,len(lista[1]-1)):
-#     if lista[1][i].getIdes()==idBusc:
-#         existe=True
-#         print(f"ID: {lista[1][i].getDefensa()[0][0]}\n" \
-#             f"Durabilidad: {lista[1][i].getDefensa()[0][1]}\n" \
-#             f"Metal: {lista[1][i].getDefensa()[0][2]}\n" \
-#             f"Color: {lista[1][i].getDefensa()[0][3]}\n" \
-#             f"Defensa: {lista[1][i].getDefensa()[1]}")
-# if existe==False:
-#     print("\n El Id ingresado, no se encuentra registrado.")
