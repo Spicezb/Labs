@@ -1,0 +1,57 @@
+# Trabajo realizado por: Luis Guillermo Alfaro y Xavier Céspedes Alvarado
+# Fecha de creación: 29/05/2025 20:00
+# Ultima actualizacion:29/05/2025 22:00
+# Versión de python: 3.13.3
+#Importacion de librerias
+from funciones import *
+
+def determinarDigitosAux(num,busc):
+    """
+    Funcionamiento: Es la funcion Auxiliar, donde se validan que los valores sean procesables.
+    Entradas:
+    num(int): Es el numero a evaluar.
+    busc(int): Es el digito que vamos a buscar.
+    Salidas:
+    Se retorna el resultado de la funcion determinarDigitosAux
+    """
+    if type(num)!=int and type(busc)!=int:
+        return print("Los valores deben de ser números enteros.")
+    elif num<=0:
+        return print("La cifra debe de ser un número positivo.")
+    elif not 0<=busc<10:
+        return print("El diigito a buscar debe de ser de un solo digito.")
+    else:
+        return determinarDigitos(num,busc)
+
+def multiNumerosImpAux(num):
+    """
+    Funcionamiento: Es la funcion Auxiliar, donde se validan que los valores sean procesables.
+    Entradas:
+    num(int): Es el numero a evaluar.
+    Salidas:
+    Se retorna el resultado de la funcion multiNumerosImp
+    """
+    if type(num)!=int:
+        return print("El valor ingresado debe corresponder a un número únicamente.")
+    elif num<=0:
+        return print("El valor ingresado debe corresponder a un número de 0.")
+    else:
+        return multiNumerosImp(num)
+
+print("Reto #1")
+print("Para la entrada: 123a")
+multiNumerosImpAux("123a")
+print("\nPara la entrada: 12345")
+multiNumerosImpAux(12345)
+print("\nPara la entrada: 246")
+multiNumerosImpAux(246)
+print("\nPara la entrada: 1246")
+multiNumerosImpAux(1246)
+
+print("\nReto #2")
+print("Para la entrada: 1234567123 a buscar 2")
+determinarDigitosAux(1234567123,2)
+print("\nPara la entrada: 3451233453 a buscar 3")
+determinarDigitosAux(3451233453,3)
+print("\nPara la entrada: 234565 a buscar 9")
+determinarDigitosAux(234565,9)
