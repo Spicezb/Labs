@@ -1,3 +1,7 @@
+# Elaborado por: Xavier Céspedes Alvarado y Luis GUillermo Alfaro Chacón
+# Fecha de creación: 24/05/2025 14:32
+# Última modificación: 26/05/2025 22:20
+# Versión: 3.13.3
 from archivos import *
 import random
 from clases import *
@@ -360,7 +364,7 @@ def mostrarArmadura(armadura):
     - muestra la informacion del objeto.
     """    
     estado=""
-    if armadura.getInfo()[0][4]==True:
+    if armadura.getDefensa()[0][4]==True:
         estado+="Activo"
     else:
         estado+="Inactivo"
