@@ -2,6 +2,7 @@
 # Fecha de creación: 24/05/2025 14:32
 # Última modificación: 26/05/2025 22:20
 # Versión: 3.13.3
+
 from archivos import *
 import random
 from clases import *
@@ -60,6 +61,7 @@ def menuMetales():
                 return metal
             except ValueError:
                 print("\nDebe seleccionar una de las opciones mostradas anteriormente.")
+
 def infoGen(lista):  
     """
     Funcionamiento:
@@ -71,10 +73,8 @@ def infoGen(lista):
     """
     while True:
         try:
-            id=float(input("\nIngrese el id: "))
-            if id%int(id)!=0:
-                raise ValueError
-            elif id<0:
+            id=int(input("\nIngrese el id: "))
+            if id<0:
                 raise ValueError
         except ValueError:
             print("\nEl id debe ser un número entero positivo.")
@@ -224,11 +224,9 @@ def eliminarEquipo(lista):
         return lista
     while True:
         try:
-            id=float(input("\nIngrese el id del arma que desea desgastar o digite -1 para regresar: "))
+            id=int(input("\nIngrese el id del arma que desea desgastar o digite -1 para regresar: "))
             if int(id)==-1:
                 return lista
-            if id%int(id)!=0:
-                raise ValueError
         except ValueError:
             print("\nEl id debe ser un número entero.")
             continue
@@ -266,7 +264,7 @@ def mostrarElimiados(lista):
     """
     conta=0
     if lista==[[],[]]:
-        return print("\nNo hay armas Registradas.")
+        return print("\nNo hay herramientas registradas.")
     for i in range(len(lista)):
         for x in lista[i]:
             if i == 0:
@@ -352,7 +350,7 @@ def mostrarArma(arma):
         f"Color: {arma.getInfo()[0][3]}\n" \
         f"Estado: {estado}\n" \
         f"Daño: {arma.getInfo()[1]}\n"\
-        f"Velocidad de ataque: {arma.getInfo()[2]}\n")
+        f"Velocidad de ataque: {arma.getInfo()[2]}")
     return True
 
 def mostrarArmadura(armadura):
@@ -374,5 +372,5 @@ def mostrarArmadura(armadura):
         f"Metal: {armadura.getDefensa()[0][2]}\n" \
         f"Color: {armadura.getDefensa()[0][3]}\n" \
         f"Estado: {estado}\n" \
-        f"Defensa: {armadura.getDefensa()[1]}\n")
+        f"Defensa: {armadura.getDefensa()[1]}")
     return True

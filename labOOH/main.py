@@ -26,11 +26,9 @@ def desgastarArmaAux(lista):
         return lista
     while True:
         try:
-            id=float(input("\nIngrese el id del arma que desea desgastar o digite -1 para regresar: "))
+            id=int(input("\nIngrese el id del arma que desea desgastar o digite -1 para regresar: "))
             if int(id)==-1:
                 return lista
-            if id%int(id)!=0:
-                raise ValueError
         except ValueError:
             print("\nEl id debe ser un número entero.")
             continue
