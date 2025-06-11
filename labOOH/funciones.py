@@ -1,3 +1,8 @@
+# Elaborado por: Xavier Céspedes Alvarado y Luis GUillermo Alfaro Chacón
+# Fecha de creación: 28/05/2025 14:32
+# Última modificación: 29/05/2025 22:20
+# Versión: 3.13.3
+
 from archivos import *
 import random
 from clases import *
@@ -41,6 +46,22 @@ def confirmar():
             print("\nDebe ingresar una de las opciones anteriores.")
     return conf
 
+def menuMetales():
+        while True:        
+            try:
+                metal=input("\nSeleccione el metal de la herramienta:\n1. Hierro\n2. Diamante\n3. Oro\nOpción: ")
+                if metal not in ("1","2","3"):
+                    raise ValueError
+                if metal =="1":
+                    metal="Hierro"
+                elif metal=="2":
+                    metal="Diamante"
+                else:
+                    metal="Oro"
+                return metal
+            except ValueError:
+                print("\nDebe seleccionar una de las opciones mostradas anteriormente.")
+
 def infoGen(lista):  
     """
     Funcionamiento:
@@ -52,10 +73,8 @@ def infoGen(lista):
     """
     while True:
         try:
-            id=float(input("\nIngrese el id: "))
-            if id%int(id)!=0:
-                raise ValueError
-            elif id<0:
+            id=int(input("\nIngrese el id: "))
+            if id<0:
                 raise ValueError
         except ValueError:
             print("\nEl id debe ser un número entero positivo.")
@@ -70,20 +89,7 @@ def infoGen(lista):
         except ValueError:
             print("\nEl id ingresado ya está registrado.")
             continue
-    while True:        
-        try:
-            metal=input("\nSeleccione el metal de la herramienta:\n1. Hierro\n2. Diamante\n3. Oro\nOpción: ")
-            if metal not in ("1","2","3"):
-                raise ValueError
-            if metal =="1":
-                metal="Hierro"
-            elif metal=="2":
-                metal="Diamante"
-            else:
-                metal="Oro"
-            break
-        except ValueError:
-            print("\nDebe seleccionar una de las opciones mostradas anteriormente.")
+    metal=menuMetales()
     while True:        
         try:
             color=input("\nSeleccione el color\n1. Azul\n2. Amarillo\n3. Gris\nOpción: ")
@@ -168,54 +174,23 @@ def insertarArmadura(lista):
     print("\nLa armadura ha sido agregada.")
     return lista
 
-def desgastarArma(lista):
+def desgastarArma(lista,objeto):
     """
     Funcionamiento:
     - Desgasta la durabilidad de un arma de 25 en 25.
     Entradas:
     - lista(list): Es la lista donde se guardan las nuevas herramientas.
+    - objeto(int): Es el índice donde se encuentra el objeto.
     Salidas:
-    - Desgasta las armas y retorna strs vacíos.
+    - Desgasta las armas y retorna la lista actualizada.
     """
-    hayActiva=False
-    for i in lista[0]:
-        if i.getEstado()==True:
-            hayActiva=True
-    if hayActiva==False:
-        print("\nNo hay ningún arma para desgastar.")
-        return ""
-    while True:
-        try:
-            id=float(input("\nIngrese el id del arma que desea desgastar o digite -1 para regresar: "))
-            if int(id)==-1:
-                return ""
-            if id%int(id)!=0:
-                raise ValueError
-        except ValueError:
-            print("\nEl id debe ser un número entero.")
-            continue
-        try:
-            id=int(id)
-            yaExiste=False
-            for i in lista[0]:
-                if id==i.getIdes():
-                    yaExiste=True
-                    arma=i
-            if yaExiste==False:
-                raise ValueError
-            break
-        except ValueError:
-            print("\nEl id ingresado no se encuentra registrado como arma.")
-            continue
-    if arma.getEstado()==False:
-        print("El arma correspondiente al id ingresado fue eliminada.")
-        return ""
+    arma=lista[0][objeto]
     while True:
         arma.setDurabilidad(arma.getDurabilidad()-25)
         if arma.getDurabilidad()<=0:
             arma.setEstado(False)
             print("\nEl arma fue desgastada en su totalidad y se eliminó.")
-            break
+            return lista
         print("\nEl arma ha sido desgastada.")
         try:
             continuar=input("\nDesea volver a desgastar el arma?\n" \
@@ -227,7 +202,7 @@ def desgastarArma(lista):
         except ValueError:
             print("\nDebe ingresar una de las opciones mostradas.")
         if continuar=="2":
-            return ""
+            return lista
 
 def eliminarEquipo(lista):
     """
@@ -236,7 +211,7 @@ def eliminarEquipo(lista):
     Entradas:
     - lista(list): Es la lista donde se guardan las nuevas herramientas
     Salidas:
-    - Modifica el estado y retorna strs vacíos.
+    - Modifica el estado y retorna la lista actualizada.
     """
     hayActivos=False
     for i in lista:
@@ -245,14 +220,12 @@ def eliminarEquipo(lista):
                 hayActivos=True
     if hayActivos==False:
         print("\nNo hay herramientas que eliminar.")
-        return ""
+        return lista
     while True:
         try:
-            id=float(input("\nIngrese el id del arma que desea desgastar o digite -1 para regresar: "))
+            id=int(input("\nIngrese el id del arma que desea desgastar o digite -1 para regresar: "))
             if int(id)==-1:
-                return ""
-            if id%int(id)!=0:
-                raise ValueError
+                return lista
         except ValueError:
             print("\nEl id debe ser un número entero.")
             continue
@@ -263,18 +236,140 @@ def eliminarEquipo(lista):
                 for j in i:
                     if id==j.getIdes():
                         yaExiste=True
-                        arma=j
+                        herramienta=j
             if yaExiste==False:
                 raise ValueError
             break
         except ValueError:
             print("\nEl id ingresado no se encuentra registrado.")
             continue
-    if arma.getEstado()==False:
+    if herramienta.getEstado()==False:
         print("\nEl arma ya fue eliminada.")
     elif confirmar()=="1":
-        arma.setEstado(False)
+        herramienta.setEstado(False)
         print("\nEl arma fue eliminada.")
     else:
         print("\nLa acción fue cancelada.")
-    return ""
+    return lista
+
+def mostrarElimiados(lista):
+    """
+    Funcionamiento:
+    - Muestra las herramientas donde su estado este en inactivo.
+    Entradas:
+    - lista(list): Es la lista donde se guardan las herramientas.
+    Salidas:
+    - Se muestran todos los eliminados.
+    """
+    conta=0
+    if lista==[[],[]]:
+        return print("\nNo hay herramientas registradas.")
+    for i in range(len(lista)):
+        for x in lista[i]:
+            if i == 0:
+                if x.getInfo()[0][4]==False:
+                    print("\nTipo: Arma")
+                    mostrarArma(x)
+                    conta+=1
+            else:
+                if x.getDefensa()[0][4]==False:
+                    print("\nTipo: Armadura")
+                    mostrarArmadura(x)
+                    conta+=1
+    if conta==0:
+        return print("\nNo hay armas eliminadas\n")
+
+def mostrarArmasMetal(lista):
+    """
+    Funcionamiento:
+    - El usuario elige una opcion de metal, y se buscan las armas que esten hechas por este material.
+    Entradas:
+    - lista(list): Es la lista donde se guardan las herramientas.
+    Salidas:
+    - Muestra la informacion de las armas que esten hechas por este material.
+    """
+    conta=0
+    if lista[0]==[]:
+        return print("\nNo hay armas Registradas.")
+    metal=menuMetales()
+    for x in lista[0]:
+        if x.getInfo()[0][2]==metal:
+            if x.getInfo()[0][4]==True:
+                conta+=1
+                mostrarArma(x)
+    if conta==0:
+        return print("\nNo hay armas registradas con este tipo de metal\n")
+
+def mostrarHerramientas(lista):
+    """
+    Funcionamiento:
+    - Muestra todas las armas que esten registradas.
+    Entradas:
+    - lista(list): Es la lista donde se guardan las herramientas.
+    Salidas:
+    - Muestra la informacion de las herramientas que esten registradas.
+    """
+    conta=0
+    if lista==[[],[]]:
+        return print("\nNo hay armas Registradas.")
+    print("\nHerramientas\n")
+    for i in range(len(lista)):
+        for x in lista[i]:
+            if i == 0:
+                if x.getInfo()[0][4]==True:
+                    print("Tipo: Arma")
+                    mostrarArma(x)
+                    conta+=1
+            else:
+                if x.getDefensa()[0][4]==True:
+                    print("Tipo: Armadura")
+                    mostrarArmadura(x)
+                    conta+=1
+    if conta==0:
+        return print("\nNo hay armas registradas en activo\n")
+    return True
+
+def mostrarArma(arma):
+    """
+    Funcionamiento:
+    - Muestra la informacion de un arma en concreto.
+    Entradas:
+    - arma(objc): es el objeto que se quiere saber la informacion.
+    Salidas:
+    - muestra la informacion del objeto.
+    """
+    estado=""
+    if arma.getInfo()[0][4]==True:
+        estado+="Activo"
+    else:
+        estado+="Inactivo"
+    print(f"ID: {arma.getInfo()[0][0]}\n" \
+        f"Durabilidad: {arma.getInfo()[0][1]}\n" \
+        f"Metal: {arma.getInfo()[0][2]}\n" \
+        f"Color: {arma.getInfo()[0][3]}\n" \
+        f"Estado: {estado}\n" \
+        f"Daño: {arma.getInfo()[1]}\n"\
+        f"Velocidad de ataque: {arma.getInfo()[2]}")
+    return True
+
+def mostrarArmadura(armadura):
+    """
+    Funcionamiento:
+    - Muestra la informacion de una armadura en concreto.
+    Entradas:
+    - armadura(objc): es el objeto que se quiere saber la informacion.
+    Salidas:
+    - muestra la informacion del objeto.
+    """    
+    estado=""
+    if armadura.getDefensa()[0][4]==True:
+        estado+="Activo"
+    else:
+        estado+="Inactivo"
+    print(f"ID: {armadura.getDefensa()[0][0]}\n" \
+        f"Durabilidad: {armadura.getDefensa()[0][1]}\n" \
+        f"Metal: {armadura.getDefensa()[0][2]}\n" \
+        f"Color: {armadura.getDefensa()[0][3]}\n" \
+        f"Estado: {estado}\n" \
+        f"Defensa: {armadura.getDefensa()[1]}")
+    return True

@@ -1,6 +1,6 @@
 # Elaborado por: Xavier Céspedes Alvarado y Luis GUillermo Alfaro Chacón
-# Fecha de creación: 24/05/2025 14:32
-# Última modificación: 24/05/2025 22:13
+# Fecha de creación: 28/05/2025 14:32
+# Última modificación: 29/05/2025 22:20
 # Versión: 3.13.3
 
 #Importación de librerías
@@ -8,6 +8,48 @@ from funciones import *
 from archivos import *
 
 #Definición de funciones
+def desgastarArmaAux(lista):
+    """
+    Funcionamiento:
+    - Verifica el arma que se va a desgastar.
+    Entradas:
+    - lista(list): Es la lista donde se guardan las nuevas herramientas.
+    Salidas:
+    - Llama a la función principal.
+    """
+    hayActiva=False
+    for i in lista[0]:
+        if i.getEstado()==True:
+            hayActiva=True
+    if hayActiva==False:
+        print("\nNo hay ningún arma para desgastar.")
+        return lista
+    while True:
+        try:
+            id=int(input("\nIngrese el id del arma que desea desgastar o digite -1 para regresar: "))
+            if int(id)==-1:
+                return lista
+        except ValueError:
+            print("\nEl id debe ser un número entero.")
+            continue
+        try:
+            id=int(id)
+            yaExiste=False
+            for i in lista[0]:
+                if id==i.getIdes():
+                    yaExiste=True
+                    objeto=lista[0].index(i)
+            if yaExiste==False:
+                raise ValueError
+            break
+        except ValueError:
+            print("\nEl id ingresado no se encuentra registrado como arma.")
+            continue
+    if lista[0][objeto].getEstado()==False:
+        print("El arma correspondiente al id ingresado fue eliminada.")
+        return lista
+    return desgastarArma(lista,objeto)
+
 def menu(lista,archivo):
     """
     Funcionamiento:
@@ -36,15 +78,17 @@ def menu(lista,archivo):
                 lista=insertarArmadura(lista)
                 grabar(lista,archivo)
             elif opcion==3:
-                desgastarArma(lista)
+                lista=desgastarArmaAux(lista)
+                grabar(lista,arch)
             elif opcion==4:
                 lista=eliminarEquipo(lista)
+                grabar(lista,arch)
             elif opcion==5:
-                lista=insertarArmadura(lista)
+                mostrarHerramientas(lista)
             elif opcion==6:
-                lista=insertarArmadura(lista)
+                mostrarArmasMetal(lista)
             elif opcion==7:
-                lista=insertarArmadura(lista)
+                mostrarElimiados(lista)
             elif opcion==8:
                 return print("Saliendo")
             else:
@@ -59,32 +103,3 @@ if verificarBase(arch)==True:
     menu(lista,arch)
 else:
     menu([[],[]],arch)
-
-
-
-#Le guardé esto pa para las de mostrar
-
-#Arma
-# idBusc=int(input("\nIngrese el ID del arma: "))
-# for i in range(0,len(lista[0]-1)):
-#     if lista[0][i].getIdes()== idBusc:
-#         print(f"ID: {lista[0][i].getInfo()[0][0]}\n" \
-#             f"Durabilidad: {lista[0][i].getInfo()[0][1]}\n" \
-#             f"Metal: {lista[0][i].getInfo()[0][2]}\n" \
-#             f"Color: {lista[1][i].getInfo()[0][3]}\n" \
-#             f"Daño: {lista[0][i].getInfo()[1]}\n"\
-#             f"Velocidad de ataque: {lista[0][i].getInfo()[2]}")
-
-#Armadura
-# existe=False
-# idBusc=int(input("\nIngrese el ID del arma: "))
-# for i in range(0,len(lista[1]-1)):
-#     if lista[1][i].getIdes()==idBusc:
-#         existe=True
-#         print(f"ID: {lista[1][i].getDefensa()[0][0]}\n" \
-#             f"Durabilidad: {lista[1][i].getDefensa()[0][1]}\n" \
-#             f"Metal: {lista[1][i].getDefensa()[0][2]}\n" \
-#             f"Color: {lista[1][i].getDefensa()[0][3]}\n" \
-#             f"Defensa: {lista[1][i].getDefensa()[1]}")
-# if existe==False:
-#     print("\n El Id ingresado, no se encuentra registrado.")
