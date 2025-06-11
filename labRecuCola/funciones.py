@@ -19,6 +19,49 @@ def obtenerSumCuadradosAux(m,n):
         return -1
     return obtenersumCuadrados(m,n)
 
+# Reto 3. - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+def obtenerParesImpares(pNum,contaP,contaI):
+    """
+    Funcionamiento:
+    - Recorre recursivamente cada dígito del número ingresado, y va contando cuántos dígitos son pares y cuántos son impares.
+    Entradas:
+    - pNum (int): Número entero positivo que se desea evaluar.
+    - contaP (int): Contador acumulador para los dígitos pares.
+    - contaI (int): Contador acumulador para los dígitos impares.
+    Salidas:
+    - Retorna una tupla (contaP, contaI) con la cantidad de dígitos pares e impares del número.
+    """
+    if pNum>0:
+        if (pNum%10)%2==0:
+            contaP+=1
+            pNum//=10
+            return obtenerParesImpares(pNum,contaP,contaI)
+        else:
+            pNum//=10
+            contaI+=1
+            return obtenerParesImpares(pNum,contaP,contaI)
+    return (contaP,contaI)
+
+def obtenerParesImparesAux(pNum):
+    """
+    Funcionamiento:
+    - Verifica que el número ingresado sea un entero. Si es negativo, lo convierte a positivo, si el número es 0, lo reconoce como un dígito par.
+    - Llama a la función recursiva 'obtenerParesImpares' para contar los dígitos pares e impares del número.
+    Entradas:
+    - pNum (int): Número entero que se desea evaluar.
+    Salidas:
+    - Retorna un mensaje de error si el valor no es un entero.
+    - Si es unicamente 0, retorna la tupla (1, 0) ya que el 0 es considerado par.
+    - En cualquier otro caso, retorna una tupla con la cantidad de dígitos pares e impares.
+    """
+    if type(pNum)!=int:
+        return "El número debe de ser un valor entero."
+    elif pNum<0:
+        pNum-=pNum*2
+    elif pNum ==0:
+        return (1,0)
+    return obtenerParesImpares(pNum,0,0)
+
 # reto 4. - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 def esBinario(num):
     if num%10!=0 and num%10!=1:

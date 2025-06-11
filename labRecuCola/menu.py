@@ -20,6 +20,18 @@ print(obtenerSumCuadradosAux(7,4))
 print(f"\nPara la entrada: {1,5}\nResultado:")
 print(obtenerSumCuadradosAux(1,5))
 
+# Reto 3. - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+print("\n***** Reto 3. Obtener cantidad de pares e impares. *****")
+print(f"\nPara la entrada: {3214}\nResultado:")
+print(obtenerParesImparesAux(3214))
+print(f"\nPara la entrada: {-18006}\nResultado:")
+print(obtenerParesImparesAux(-18006))
+print(f"\nPara la entrada: {0}\nResultado:")
+print(obtenerParesImparesAux(0))
+print(f"\nPara la entrada: {1}\nResultado:")
+print(obtenerParesImparesAux(1))
+print(f"\nPara la entrada: {"abc"}\nResultado:")
+print(obtenerParesImparesAux("abc"))
 # Reto 4. - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 print("\n***** Reto 4. Validar binario. *****")
 print(f"\nPara la entrada: {1001019}\nResultado:")
