@@ -18,3 +18,11 @@ def obtenerSumCuadradosAux(m,n):
     if type(n)!= int or type(m)!=int:
         return -1
     return obtenersumCuadrados(m,n)
+
+# reto 4. - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+def esBinario(num):
+    if num%10!=0 and num%10!=1:
+        return False
+    if num==0:
+        return True
+    return esBinario(num//10)
