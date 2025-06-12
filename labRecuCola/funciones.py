@@ -7,12 +7,31 @@
 
 # Reto 2. - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 def obtenersumCuadrados(m,n,res=0):
+    """
+    Funcionamiento:
+    - Calcula la suma de los cuadrados entre m y n de forma recursiva.
+    Entradas:
+    - m(int): Límite inferior.
+    - n(int): Límite superior.
+    - res(int): Acumulador de la suma.
+    Salidas:
+    - Retorna la suma de los cuadrados entre m y n.
+    """
     if m == n:
         return res + n**2
     res += m**2 
     return obtenersumCuadrados(m+1,n,res)
 
 def obtenerSumCuadradosAux(m,n):
+    """
+    Funcionamiento:
+    - Verifica que los valores sean válidos y llama a la función que suma cuadrados.
+    Entradas:
+    - m(int): Límite inferior.
+    - n(int): Límite superior.
+    Salidas:
+    - Retorna la suma de los cuadrados entre m y n, o -1 si hay error.
+    """
     if n<m:
         return -1
     if type(n)!= int or type(m)!=int:
@@ -64,6 +83,14 @@ def obtenerParesImparesAux(pNum):
 
 # reto 4. - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 def esBinario(num):
+    """
+    Funcionamiento:
+    - Verifica que un número sea binario.
+    Entradas:
+    - num(int): Número que se va a evaluar.
+    Salidas:
+    - Retorna True si el número es binario y False si no.
+    """
     if num%10!=0 and num%10!=1:
         return False
     if num==0:

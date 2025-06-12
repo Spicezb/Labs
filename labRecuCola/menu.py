@@ -32,6 +32,7 @@ print(f"\nPara la entrada: {1}\nResultado:")
 print(obtenerParesImparesAux(1))
 print(f"\nPara la entrada: {"abc"}\nResultado:")
 print(obtenerParesImparesAux("abc"))
+
 # Reto 4. - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 print("\n***** Reto 4. Validar binario. *****")
 print(f"\nPara la entrada: {1001019}\nResultado:")
