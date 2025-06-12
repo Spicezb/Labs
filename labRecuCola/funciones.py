@@ -74,7 +74,7 @@ def obtenerParesImparesAux(pNum):
     - En cualquier otro caso, retorna una tupla con la cantidad de dígitos pares e impares.
     """
     if type(pNum)!=int:
-        return "El número debe de ser un valor entero."
+        return ()
     elif pNum<0:
         pNum-=pNum*2
     elif pNum ==0:
